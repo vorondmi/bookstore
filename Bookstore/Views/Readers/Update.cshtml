@@ -1,0 +1,13 @@
+﻿@model Bookstore.ViewModels.ReaderViewModel
+
+@using Bookstore.Models;
+
+@using (Html.BeginForm())
+{ 
+    @Html.EditorFor(m => m.name) <br />
+    @Html.DropDownListFor(m => m.genre, new SelectList(Enum.GetValues(typeof(Genre)))) <br />
+
+    <input type="submit" value="Submit" /> <br />
+}
+
+@Html.ActionLink("Reader list", "Index", "Readers") <br />

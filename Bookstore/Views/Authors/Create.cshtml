@@ -1,0 +1,11 @@
+﻿@model Bookstore.ViewModels.AuthorViewModel
+
+@using (Html.BeginForm())
+{ 
+    @Html.EditorFor(m => m.authorName) <br />
+    @Html.CheckBoxFor(m => m.alive, true) <br />
+
+    <input type="submit" value="Submit" /> <br />
+}
+
+@Html.ActionLink("Author list", "Index", "Authors") <br />

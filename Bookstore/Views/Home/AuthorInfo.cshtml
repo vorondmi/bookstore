@@ -1,0 +1,23 @@
+﻿@model IEnumerable<Bookstore.ViewModels.ComplexAuthorViewModel>
+
+<table border="1">
+    @foreach(var item in Model)
+    {
+        <tr>
+            <td>@item.authorName</td>
+            <td>@item.alive</td>
+            <td>
+                <table>
+                    @foreach(var bookItem in item.books)
+                    {
+                        <tr>
+                            <td>@bookItem.bookTitle</td>
+                            <td>@bookItem.release</td>
+                        </tr>
+                    }
+                </table>
+            </td>
+        </tr>
+    }
+</table>
+

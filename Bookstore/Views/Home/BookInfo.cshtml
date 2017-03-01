@@ -1,0 +1,32 @@
+﻿@model IEnumerable<Bookstore.ViewModels.ComplexBookViewModel>
+
+<table border="1">
+    <tr>
+        <th>@Html.LabelFor(m => m.FirstOrDefault().isbn)</th>
+        <th>@Html.LabelFor(m => m.FirstOrDefault().bookTitle)</th>
+        <th>@Html.LabelFor(m => m.FirstOrDefault().release)</th>
+        <th>@Html.LabelFor(m => m.FirstOrDefault().authorName)</th>
+        <th>@Html.LabelFor(m => m.FirstOrDefault().readers)</th>
+    </tr>
+
+    @foreach(var item in Model)
+    {
+        <tr>
+            <td>@item.isbn</td>
+            <td>@item.bookTitle</td>
+            <td>@item.release</td>
+            <td>@item.authorName</td>
+            <td>
+                <table>
+                    @foreach(var reader in item.readers)
+                    {
+                        <tr>
+                            <td>@reader.name</td>
+                            <td>@Html.ActionLink("Details", "Details", "Readers", new { id = reader.id }, null)</td>
+                        </tr>
+                    }
+                </table>
+            </td>
+        </tr>
+    }
+</table>

@@ -1,0 +1,13 @@
+﻿@model Bookstore.ViewModels.ISBNViewModel
+
+@using Bookstore.Models
+
+@using (Html.BeginForm())
+{
+    @Html.EditorFor(i => i.isbn) <br />
+    @Html.DropDownListFor(i => i.country, new SelectList(Enum.GetValues(typeof(Country)))) <br />
+
+    <input type="submit" value="Submit" /> <br />
+}
+
+@Html.ActionLink("ISBN list", "Index", "ISBN") <br />

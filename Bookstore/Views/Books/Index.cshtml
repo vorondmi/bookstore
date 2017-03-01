@@ -1,0 +1,23 @@
+﻿@model IEnumerable<Bookstore.ViewModels.BookViewModel>
+
+@using Bookstore.Models
+
+<table border="1">
+    <tr>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.bookTitle</td>
+            <td>@item.release</td>
+            <td>@Html.ActionLink("Details", "Details", new { id = item.id })</td>
+            <td>@Html.ActionLink("Update", "Update", new { id = item.id })</td>
+            <td>@Html.ActionLink("Delete", "Delete", new { id = item.id })</td>
+        </tr>
+    }
+</table>
+@Html.ActionLink("New book", "Create", "Books") <br />
+
+

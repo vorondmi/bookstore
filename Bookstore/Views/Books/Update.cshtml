@@ -1,0 +1,11 @@
+﻿@model Bookstore.ViewModels.BookViewModel
+
+@using (Html.BeginForm())
+{ 
+    @Html.EditorFor(m => m.bookTitle) <br />
+    @Html.EditorFor(m => m.release) <br />
+
+    <input type="submit" value="Submit" /> <br />
+}
+
+@Html.ActionLink("Book list", "Index", "Books") <br />

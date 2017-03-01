@@ -1,0 +1,8 @@
+﻿@model Bookstore.ViewModels.ISBNViewModel
+
+@using Bookstore.Models
+
+@Html.DisplayFor(m => m.isbn) <br />
+@Html.DisplayFor(m => m.country) <br />
+
+@Html.ActionLink("ISBN list", "Index", "ISBN") <br />

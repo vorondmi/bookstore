@@ -1,0 +1,8 @@
+﻿@model Bookstore.ViewModels.ReaderViewModel
+
+@using Bookstore.Models;
+
+@Html.DisplayFor(m => m.name) <br />
+@Html.DisplayFor(m => m.genre) <br />
+
+@Html.ActionLink("Reader list", "Index", "Readers") <br />

@@ -1,0 +1,30 @@
+﻿@model Bookstore.ViewModels.BookViewModel
+
+@using Bookstore.ViewModels;
+@using Bookstore.Models;
+
+@using (Html.BeginForm())
+{ 
+    @Html.LabelFor(m => m.bookTitle) <br />
+    @Html.EditorFor(m => m.bookTitle) <br />
+
+    @Html.LabelFor(m => m.release) <br />
+    @Html.TextBoxFor(m => m.release, new { @type = "date", @Value = DateTime.Now.ToString("yyyy-MM-dd") }) <br />
+
+    @Html.LabelFor(m => m.authors) <br />
+    @Html.DropDownListFor(m => m.authorID, new SelectList(Model.authors, "id", "authorName")) <br />
+
+    @Html.LabelFor(m => m.isbns) <br />
+    @Html.DropDownListFor(m => m.isbnID, new SelectList(Model.isbns, "id",  "isbn")) <br />
+
+    for (var i = 0; i < Model.readerCheckBoxes.Count(); i++)
+    {
+        @Html.CheckBoxFor(m => m.readerCheckBoxes[i].Checked)
+        @Html.DisplayFor(m => m.readerCheckBoxes[i].name) 
+        @Html.HiddenFor(m => m.readerCheckBoxes[i].id)
+    }
+
+    <input type="submit" value="Submit" /> <br />
+}
+
+@Html.ActionLink("Book list", "Index", "Books") <br />
