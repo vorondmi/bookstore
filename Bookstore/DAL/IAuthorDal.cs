@@ -7,7 +7,7 @@ using Bookstore.Models;
 
 namespace Bookstore.DAL
 {
-    interface IAuthorDal
+    public interface IAuthorDal
     {
         List<Author> findAll();
         Author findByKey(Guid key);

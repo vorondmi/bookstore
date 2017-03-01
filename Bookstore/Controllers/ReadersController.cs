@@ -6,16 +6,22 @@ using System.Data.Entity;
 using Bookstore.ViewModels;
 using AutoMapper;
 using System.Collections.Generic;
+using Bookstore.BL;
 
 namespace Bookstore.Controllers
 {
     public class ReadersController : Controller
     {
-        private BookStoreContext db = new BookStoreContext();
+        readonly IReaderBL businessLayer;
+
+        public ReadersController(IReaderBL _businessLayer)
+        {
+            businessLayer = _businessLayer;
+        }
 
         public ActionResult Index()
         {
-            var itemList = db.readers.ToList();
+            var itemList = businessLayer.findAll();
 
             var itemListView = new List<ReaderViewModel>();
 
@@ -39,15 +45,14 @@ namespace Bookstore.Controllers
 
             createdItem.id = Guid.NewGuid();
 
-            db.readers.Add(createdItem);
-            db.SaveChanges();
+            businessLayer.create(createdItem);
 
             return RedirectToAction("Index");
         }
 
         public ActionResult Details(Guid id)
         {
-            var itemToDetail = db.readers.Where(item => item.id.Equals(id)).FirstOrDefault();
+            var itemToDetail = businessLayer.findByKey(id);
 
             var itemToDetailView = Mapper.Map<ReaderViewModel>(itemToDetail);
 
@@ -56,7 +61,7 @@ namespace Bookstore.Controllers
 
         public ActionResult Update(Guid id)
         {
-            var itemToUpdate = db.readers.Where(item => item.id.Equals(id)).FirstOrDefault();
+            var itemToUpdate = businessLayer.findByKey(id);
 
             var itemToUpdateView = Mapper.Map<ReaderViewModel>(itemToUpdate);
 
@@ -68,18 +73,14 @@ namespace Bookstore.Controllers
         {
             var updatedItem = Mapper.Map<Reader>(updatedItemView);
 
-            db.readers.Attach(updatedItem);
-            db.Entry(updatedItem).State = EntityState.Modified;
-            db.SaveChanges();
+            businessLayer.update(updatedItem);
 
             return RedirectToAction("Index");
         }
 
         public ActionResult Delete(Guid id)
         {
-            Reader itemToDelete = db.readers.Where(item => item.id.Equals(id)).FirstOrDefault();
-            db.readers.Remove(itemToDelete);
-            db.SaveChanges();
+            businessLayer.delete(id);
 
             return RedirectToAction("Index");
         }

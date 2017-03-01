@@ -7,16 +7,22 @@ using Bookstore.Models;
 using System.Data.Entity;
 using Bookstore.ViewModels;
 using AutoMapper;
+using Bookstore.BL;
 
 namespace Bookstore.Controllers
 {
     public class AuthorsController : Controller
     {
-        private BookStoreContext db = new BookStoreContext();
+        readonly IAuthorBL businessLayer;
+
+        public AuthorsController(IAuthorBL _businessLayer)
+        {
+            businessLayer = _businessLayer;
+        }
 
         public ActionResult Index()
         {
-            var itemList = db.authors.ToList();
+            var itemList = businessLayer.findAll();
 
             var itemListView = new List<AuthorViewModel>();
 
@@ -40,15 +46,14 @@ namespace Bookstore.Controllers
 
             createdItem.id = Guid.NewGuid();
 
-            db.authors.Add(createdItem);
-            db.SaveChanges();
+            businessLayer.create(createdItem);
 
             return RedirectToAction("Index");
         }
 
         public ActionResult Details(Guid id)
         {
-            var itemToDetail = db.authors.Where(item => item.id.Equals(id)).FirstOrDefault();
+            var itemToDetail = businessLayer.findByKey(id);
 
             var itemToDetailView = Mapper.Map<AuthorViewModel>(itemToDetail);
 
@@ -57,7 +62,7 @@ namespace Bookstore.Controllers
 
         public ActionResult Update(Guid id)
         {
-            var itemToUpdate = db.authors.Where(item => item.id.Equals(id)).FirstOrDefault();
+            var itemToUpdate = businessLayer.findByKey(id);
 
             var itemToUpdateView = Mapper.Map<AuthorViewModel>(itemToUpdate);
             return View(itemToUpdateView);
@@ -68,18 +73,14 @@ namespace Bookstore.Controllers
         {
             var updatedItem = Mapper.Map<Author>(updatedItemView);
 
-            db.authors.Attach(updatedItem);
-            db.Entry(updatedItem).State = EntityState.Modified;
-            db.SaveChanges();
+            businessLayer.update(updatedItem);
 
             return RedirectToAction("Index");
         }
 
         public ActionResult Delete(Guid id)
         {
-            Author itemToDelete = db.authors.Where(item => item.id.Equals(id)).FirstOrDefault();
-            db.authors.Remove(itemToDelete);
-            db.SaveChanges();
+            businessLayer.delete(id);
 
             return RedirectToAction("Index");
         }

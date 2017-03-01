@@ -7,44 +7,44 @@ using System.Data.Entity;
 
 namespace Bookstore.DAL
 {
-    public class AuthorDal : IAuthorDal
+    public class ReaderDal : IReaderDal
     {
         readonly IDbContext db;
 
-        public AuthorDal(IDbContext _db)
+        public ReaderDal(IDbContext _db)
         {
             db = _db;
         }
 
-        public int delete(Author entity)
+        public int delete(Reader entity)
         {
-            db.authors.Remove(entity);
+            db.readers.Remove(entity);
             db.SaveChanges();
 
             return 0;
         }
 
-        public List<Author> findAll()
+        public List<Reader> findAll()
         {
-            return db.authors.ToList();
+            return db.readers.ToList();
         }
 
-        public Author findByKey(Guid key)
+        public Reader findByKey(Guid key)
         {
-            return db.authors.Where(a => a.id.Equals(key)).FirstOrDefault();
+            return db.readers.Where(a => a.id.Equals(key)).FirstOrDefault();
         }
 
-        public int save(Author entity)
+        public int save(Reader entity)
         {
-            db.authors.Add(entity);
+            db.readers.Add(entity);
             db.SaveChanges();
 
             return 0;
         }
 
-        public int update(Author entity)
+        public int update(Reader entity)
         {
-            db.authors.Attach(entity);
+            db.readers.Attach(entity);
             db.Entry(entity).State = EntityState.Modified;
             db.SaveChanges();
 

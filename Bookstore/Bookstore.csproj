@@ -220,17 +220,27 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\UnityMvcActivator.cs" />
+    <Compile Include="BL\Author.cs" />
+    <Compile Include="BL\BookBL.cs" />
+    <Compile Include="BL\IAuthorBL.cs" />
+    <Compile Include="BL\IBookBL.cs" />
     <Compile Include="BL\IISBNBL.cs" />
+    <Compile Include="BL\IReaderBL.cs" />
     <Compile Include="BL\ISBNBL.cs" />
+    <Compile Include="BL\Reader.cs" />
     <Compile Include="Controllers\AuthorsController.cs" />
     <Compile Include="Controllers\BooksController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ISBNController.cs" />
     <Compile Include="Controllers\ReadersController.cs" />
     <Compile Include="DAL\AuthorDal.cs" />
+    <Compile Include="DAL\BookDal.cs" />
     <Compile Include="DAL\IAuthorDal.cs" />
+    <Compile Include="DAL\IBookDal.cs" />
     <Compile Include="DAL\IISBNDal.cs" />
+    <Compile Include="DAL\IReaderDal.cs" />
     <Compile Include="DAL\ISBNDal.cs" />
+    <Compile Include="DAL\ReaderDal.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

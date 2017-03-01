@@ -7,23 +7,22 @@ using Bookstore.ViewModels;
 using AutoMapper;
 using System.Collections.Generic;
 using Microsoft.Practices.Unity;
+using Bookstore.BL;
 
 namespace Bookstore.Controllers
 {
     public class BooksController : Controller
     {
-        readonly IDbContext db;
+        readonly IBookBL businessLayer;
 
-        public BooksController(IDbContext _db)
+        public BooksController(IBookBL _businessLayer)
         {
-            db = _db;
+            businessLayer = _businessLayer;
         }
-
-        //private BookStoreContext db = new BookStoreContext();
 
         public ActionResult Index()
         {
-            var itemList = db.books.ToList();
+            var itemList = businessLayer.findAll();
 
             var itemListView = new List<BookViewModel>();
 
