@@ -40,8 +40,14 @@ namespace Bookstore.App_Start
             container.RegisterType<IDbContext, BookStoreContext>();
 
             container.RegisterType<IISBNDal, ISBNDal>();
+            container.RegisterType<IAuthorDal, AuthorDal>();
+            container.RegisterType<IBookDal, BookDal>();
+            container.RegisterType<IReaderDal, ReaderDal>();
 
             container.RegisterType<IISBNBL, ISBNBL>();
+            container.RegisterType<IAuthorBL, AuthorBL>();
+            container.RegisterType<IBookBL, BookBL>();
+            container.RegisterType<IReaderBL, ReaderBL>();
             // TODO: Register your types here
             // container.RegisterType<IProductRepository, ProductRepository>();
         }
