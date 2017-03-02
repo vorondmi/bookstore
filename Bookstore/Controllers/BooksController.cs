@@ -73,7 +73,9 @@ namespace Bookstore.Controllers
         {
             var itemToDetail = bookBL.findByKey(id);
 
-            return View(itemToDetail);
+            var itemToDetailView = Mapper.Map<BookViewModel>(itemToDetail);
+
+            return View(itemToDetailView);
         }
 
         public ActionResult Update(Guid id)

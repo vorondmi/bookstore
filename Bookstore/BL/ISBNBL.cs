@@ -19,10 +19,9 @@ namespace Bookstore.BL
         
         public int create(ISBN entity)
         {
-            entity.id = Guid.NewGuid();
-
             if(ValidationService.EntityIsValid(entity))
             {
+                entity.id = Guid.NewGuid();
                 isbnDal.save(entity);
                 return 0;
             }

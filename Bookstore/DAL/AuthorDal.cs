@@ -44,8 +44,8 @@ namespace Bookstore.DAL
 
         public int update(Author entity)
         {
-            db.authors.Attach(entity);
-            db.Entry(entity).State = EntityState.Modified;
+            var entityToUpdate = db.authors.Find(entity.id);
+            db.Entry(entityToUpdate).CurrentValues.SetValues(entity);
             db.SaveChanges();
 
             return 0;

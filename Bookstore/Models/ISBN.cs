@@ -18,7 +18,7 @@ namespace Bookstore.Models
 
         public Country country { get; set; }
 
-        //public virtual Book book { get; set; }
+        public virtual Book book { get; set; }
     }
 
     public enum Country

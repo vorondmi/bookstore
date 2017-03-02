@@ -19,11 +19,13 @@ namespace Bookstore.Models
         {
             base.OnModelCreating(modelBuilder);
 
-            //modelBuilder.Entity<Book>()
-            //    .HasRequired(b => b.isbn)
-            //    .WithRequiredPrincipal(i => i.book);
+            //modelBuilder.Entity<ISBN>()
+            //    .HasRequired(b => b.book)
+            //    .WithRequiredPrincipal(i => i.isbn);
+
+            modelBuilder.Entity<ISBN>()
+                .HasOptional(b => b.book)
+                .WithRequired(i => i.isbn);
         }
-
-
     }
 }
