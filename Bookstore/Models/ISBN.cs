@@ -12,6 +12,8 @@ namespace Bookstore.Models
         [Key]
         public Guid id { get; set; }
 
+        [Required]
+        [Range(0, 20)]
         public int isbn { get; set; }
 
         public Country country { get; set; }

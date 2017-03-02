@@ -43,11 +43,13 @@ namespace Bookstore.Controllers
         public ActionResult Create(ISBNViewModel createdItemView)
         {
             var createdItem = Mapper.Map<ISBN>(createdItemView);
-            //createdItem.id = Guid.NewGuid();
 
-            isbnBL.create(createdItem);
+            if(isbnBL.create(createdItem) == 0)
+            {
+                return RedirectToAction("Index");
+            }
 
-            return RedirectToAction("Index");
+            return View(createdItemView);
         }
 
         public ActionResult Details(Guid id)
@@ -73,9 +75,12 @@ namespace Bookstore.Controllers
         {
             var updatedItem = Mapper.Map<ISBN>(updatedItemView);
 
-            isbnBL.update(updatedItem);
+            if(isbnBL.update(updatedItem) == 0)
+            {
+                return RedirectToAction("Index");
+            }
 
-            return RedirectToAction("Index");
+            return View(updatedItemView);
         }
 
         public ActionResult Delete(Guid id)

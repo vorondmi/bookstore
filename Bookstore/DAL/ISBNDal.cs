@@ -44,9 +44,13 @@ namespace Bookstore.DAL
 
         public int update(ISBN entity)
         {
-            
+
             //db.isbns.Attach(entity);
-            db.Entry(entity).State = EntityState.Modified;
+            //db.Entry(entity).State = EntityState.Modified;
+
+            var entityToDelete = db.isbns.Find(entity.id);
+            db.isbns.Remove(entityToDelete);
+            db.isbns.Add(entity);
             db.SaveChanges();
 
             return 0;

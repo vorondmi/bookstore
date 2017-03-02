@@ -24,18 +24,22 @@ namespace Bookstore.BL
 
         public int create(Book entity, Guid authorID, Guid isbnID, List<Guid> readerIDs)
         {
-            entity.id = Guid.NewGuid();
+            if (ValidationService.EntityIsValid(entity))
+            {
+                entity.id = Guid.NewGuid();
 
-            entity.author = authorBL.findByKey(authorID);
-            entity.isbn = isbnBL.findByKey(isbnID);
+                entity.author = authorBL.findByKey(authorID);
+                entity.isbn = isbnBL.findByKey(isbnID);
 
-            //createdItem.readers = db.readers.Where(r => readerIDs.Any(i => i.Equals(r.id))).ToList();
-            var readerList = readerBL.findAll();
-            entity.readers = readerList.Where(r => readerIDs.Any(i => i.Equals(r.id))).ToList();
+                var readerList = readerBL.findAll();
+                entity.readers = readerList.Where(r => readerIDs.Any(i => i.Equals(r.id))).ToList();
 
-            bookDal.save(entity);
+                bookDal.save(entity);
 
-            return 0;
+                return 0;
+            }
+
+            return -1;
         }
 
         public int delete(Guid key)
@@ -58,9 +62,14 @@ namespace Bookstore.BL
 
         public int update(Book entity)
         {
-            bookDal.update(entity);
+            if (ValidationService.EntityIsValid(entity))
+            {
+                bookDal.update(entity);
 
-            return 0;
+                return 0;
+            }
+
+            return -1;
         }
     }
 }

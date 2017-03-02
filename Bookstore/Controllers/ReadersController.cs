@@ -43,11 +43,12 @@ namespace Bookstore.Controllers
         {
             var createdItem = Mapper.Map<Reader>(createdItemView);
 
-            //createdItem.id = Guid.NewGuid();
+            if(readerBL.create(createdItem) == 0)
+            {
+                return RedirectToAction("Index");
+            }
 
-            readerBL.create(createdItem);
-
-            return RedirectToAction("Index");
+            return View(createdItemView);
         }
 
         public ActionResult Details(Guid id)
@@ -73,9 +74,12 @@ namespace Bookstore.Controllers
         {
             var updatedItem = Mapper.Map<Reader>(updatedItemView);
 
-            readerBL.update(updatedItem);
+            if(readerBL.update(updatedItem) == 0)
+            {
+                return RedirectToAction("Index");
+            }
 
-            return RedirectToAction("Index");
+            return View(updatedItemView);
         }
 
         public ActionResult Delete(Guid id)

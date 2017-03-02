@@ -18,11 +18,16 @@ namespace Bookstore.BL
 
         public int create(Reader entity)
         {
-            entity.id = Guid.NewGuid();
+            if (ValidationService.EntityIsValid(entity))
+            {
+                entity.id = Guid.NewGuid();
 
-            readerDal.save(entity);
+                readerDal.save(entity);
 
-            return 0;
+                return 0;
+            }
+
+            return -1;
         }
 
         public int delete(Guid key)
@@ -45,9 +50,14 @@ namespace Bookstore.BL
 
         public int update(Reader entity)
         {
-            readerDal.update(entity);
+            if (ValidationService.EntityIsValid(entity))
+            {
+                readerDal.update(entity);
 
-            return 0;
+                return 0;
+            }
+
+            return -1;
         }
     }
 }

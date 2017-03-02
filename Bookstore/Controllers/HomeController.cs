@@ -6,13 +6,25 @@ using System.Web.Mvc;
 using Bookstore.Models;
 using Bookstore.ViewModels;
 using AutoMapper;
+using Bookstore.BL;
 
 namespace Bookstore.Controllers
 {
     
     public class HomeController : Controller
     {
-        BookStoreContext db = new BookStoreContext();
+        readonly IAuthorBL authorBL;
+        readonly IBookBL bookBL;
+        readonly IISBNBL isbnBL;
+        readonly IReaderBL readerBL;
+
+        public HomeController(IAuthorBL _authorBL, IBookBL _bookBL, IISBNBL _isbnBL, IReaderBL _readerBL)
+        {
+            authorBL = _authorBL;
+            bookBL = _bookBL;
+            isbnBL = _isbnBL;
+            readerBL = _readerBL;
+        }
 
         public ActionResult Index()
         {
@@ -21,15 +33,15 @@ namespace Bookstore.Controllers
 
         public ActionResult BookInfo()
         {
-            var books = db.books.ToList();
+            var books = bookBL.findAll();
 
             List<ComplexBookViewModel> bookList = new List<ComplexBookViewModel>();
 
             foreach(var book in books)
             {
                 ComplexBookViewModel bookViewModel = Mapper.Map<ComplexBookViewModel>(book);
-                bookViewModel.isbn = db.isbns.Where(i => i.id.Equals(book.isbn.id)).FirstOrDefault().isbn;
-                bookViewModel.authorName = db.authors.Where(a => a.id.Equals(book.author.id)).FirstOrDefault().authorName;
+                bookViewModel.isbn = isbnBL.findByKey(book.isbn.id).isbn;
+                bookViewModel.authorName = authorBL.findByKey(book.author.id).authorName;
 
                 bookList.Add(bookViewModel);
             }
@@ -39,7 +51,7 @@ namespace Bookstore.Controllers
 
         public ActionResult AuthorInfo()
         {
-            var authorsList = db.authors.ToList();
+            var authorsList = authorBL.findAll();
 
             List<ComplexAuthorViewModel> authorListView = new List<ComplexAuthorViewModel>();
             foreach(var authorItem in authorsList)

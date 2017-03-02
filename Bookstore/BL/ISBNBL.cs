@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using Bookstore.Models;
 using Bookstore.DAL;
+using System.ComponentModel.DataAnnotations;
 
 namespace Bookstore.BL
 {
@@ -20,9 +21,13 @@ namespace Bookstore.BL
         {
             entity.id = Guid.NewGuid();
 
-            isbnDal.save(entity);
-
-            return 0;
+            if(ValidationService.EntityIsValid(entity))
+            {
+                isbnDal.save(entity);
+                return 0;
+            }
+            
+            return -1;
         }
 
         public int delete(Guid key)
@@ -45,9 +50,14 @@ namespace Bookstore.BL
 
         public int update(ISBN entity)
         {
-            isbnDal.update(entity);
+            if (ValidationService.EntityIsValid(entity))
+            {
+                isbnDal.update(entity);
 
-            return 0;
+                return 0;
+            }
+
+            return -1;
         }
     }
 }

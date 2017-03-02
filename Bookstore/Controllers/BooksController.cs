@@ -58,14 +58,15 @@ namespace Bookstore.Controllers
         [HttpPost]
         public ActionResult Create(BookViewModel createdItemView)
         {
-            //createdItemView.id = Guid.NewGuid();
-
             var createdItem = Mapper.Map<Book>(createdItemView);
 
             List<Guid> readerIDs = createdItemView.readerCheckBoxes.Where(r => r.Checked).Select(cb => cb.id).ToList();
-            bookBL.create(createdItem, createdItemView.authorID, createdItemView.isbnID, readerIDs);
+            if (bookBL.create(createdItem, createdItemView.authorID, createdItemView.isbnID, readerIDs) == 0)
+            {
+                return RedirectToAction("Index");
+            }
 
-            return RedirectToAction("Index");
+            return View(createdItemView);
         }
 
         public ActionResult Details(Guid id)
@@ -90,9 +91,12 @@ namespace Bookstore.Controllers
         {
             var updatedItem = Mapper.Map<Book>(updatedItemView);
 
-            bookBL.update(updatedItem);
+            if (bookBL.update(updatedItem) == 0)
+            {
+                return RedirectToAction("Index");
+            }
 
-            return RedirectToAction("Index");
+            return View(updatedItemView);
         }
 
         public ActionResult Delete(Guid id)
