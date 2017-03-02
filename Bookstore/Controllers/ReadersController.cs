@@ -12,16 +12,16 @@ namespace Bookstore.Controllers
 {
     public class ReadersController : Controller
     {
-        readonly IReaderBL businessLayer;
+        readonly IReaderBL readerBL;
 
-        public ReadersController(IReaderBL _businessLayer)
+        public ReadersController(IReaderBL _readerBL)
         {
-            businessLayer = _businessLayer;
+            readerBL = _readerBL;
         }
 
         public ActionResult Index()
         {
-            var itemList = businessLayer.findAll();
+            var itemList = readerBL.findAll();
 
             var itemListView = new List<ReaderViewModel>();
 
@@ -43,16 +43,16 @@ namespace Bookstore.Controllers
         {
             var createdItem = Mapper.Map<Reader>(createdItemView);
 
-            createdItem.id = Guid.NewGuid();
+            //createdItem.id = Guid.NewGuid();
 
-            businessLayer.create(createdItem);
+            readerBL.create(createdItem);
 
             return RedirectToAction("Index");
         }
 
         public ActionResult Details(Guid id)
         {
-            var itemToDetail = businessLayer.findByKey(id);
+            var itemToDetail = readerBL.findByKey(id);
 
             var itemToDetailView = Mapper.Map<ReaderViewModel>(itemToDetail);
 
@@ -61,7 +61,7 @@ namespace Bookstore.Controllers
 
         public ActionResult Update(Guid id)
         {
-            var itemToUpdate = businessLayer.findByKey(id);
+            var itemToUpdate = readerBL.findByKey(id);
 
             var itemToUpdateView = Mapper.Map<ReaderViewModel>(itemToUpdate);
 
@@ -73,14 +73,14 @@ namespace Bookstore.Controllers
         {
             var updatedItem = Mapper.Map<Reader>(updatedItemView);
 
-            businessLayer.update(updatedItem);
+            readerBL.update(updatedItem);
 
             return RedirectToAction("Index");
         }
 
         public ActionResult Delete(Guid id)
         {
-            businessLayer.delete(id);
+            readerBL.delete(id);
 
             return RedirectToAction("Index");
         }

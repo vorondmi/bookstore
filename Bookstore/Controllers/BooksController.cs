@@ -13,16 +13,22 @@ namespace Bookstore.Controllers
 {
     public class BooksController : Controller
     {
-        readonly IBookBL businessLayer;
+        readonly IBookBL bookBL;
+        readonly IAuthorBL authorBL;
+        readonly IISBNBL isbnBL;
+        readonly IReaderBL readerBL;
 
-        public BooksController(IBookBL _businessLayer)
+        public BooksController(IBookBL _bookBL, IAuthorBL _authorBL, IISBNBL _isbnBL, IReaderBL _readerBL)
         {
-            businessLayer = _businessLayer;
+            bookBL = _bookBL;
+            authorBL = _authorBL;
+            isbnBL = _isbnBL;
+            readerBL = _readerBL;
         }
 
         public ActionResult Index()
         {
-            var itemList = businessLayer.findAll();
+            var itemList = bookBL.findAll();
 
             var itemListView = new List<BookViewModel>();
 
@@ -37,11 +43,11 @@ namespace Bookstore.Controllers
         public ActionResult Create()
         {
             BookViewModel book = new BookViewModel();
-            book.authors = db.authors.ToList();
-            book.isbns = db.isbns.ToList();
+            book.authors = authorBL.findAll();
+            book.isbns = isbnBL.findAll();
 
             book.readerCheckBoxes = new List<CheckBoxModel>();
-            foreach(Reader r in db.readers.ToList())
+            foreach(Reader r in readerBL.findAll())
             {
                 book.readerCheckBoxes.Add(new CheckBoxModel(r.id, r.name, false));
             }
@@ -52,34 +58,29 @@ namespace Bookstore.Controllers
         [HttpPost]
         public ActionResult Create(BookViewModel createdItemView)
         {
-            createdItemView.id = Guid.NewGuid();
+            //createdItemView.id = Guid.NewGuid();
 
             var createdItem = Mapper.Map<Book>(createdItemView);
-            createdItem.isbn = db.isbns.Where(i => i.id.Equals(createdItemView.isbnID)).FirstOrDefault();
-            createdItem.author = db.authors.Where(a => a.id.Equals(createdItemView.authorID)).FirstOrDefault();
 
             List<Guid> readerIDs = createdItemView.readerCheckBoxes.Where(r => r.Checked).Select(cb => cb.id).ToList();
-            createdItem.readers = db.readers.Where(r => readerIDs.Any(i => i.Equals(r.id))).ToList();
-
-            db.books.Add(createdItem);
-            db.SaveChanges();
+            bookBL.create(createdItem, createdItemView.authorID, createdItemView.isbnID, readerIDs);
 
             return RedirectToAction("Index");
         }
 
         public ActionResult Details(Guid id)
         {
-            var itemToDetail = db.books.Where(item => item.id.Equals(id)).FirstOrDefault();
+            var itemToDetail = bookBL.findByKey(id);
 
             return View(itemToDetail);
         }
 
         public ActionResult Update(Guid id)
         {
-            var itemToUpdate = db.books.Where(item => item.id.Equals(id)).FirstOrDefault();
+            var itemToUpdate = bookBL.findByKey(id);
 
             var itemToUpdateView = Mapper.Map<BookViewModel>(itemToUpdate);
-            itemToUpdateView.authors = db.authors.ToList();
+            itemToUpdateView.authors = authorBL.findAll();
 
             return View(itemToUpdateView);
         }
@@ -89,18 +90,14 @@ namespace Bookstore.Controllers
         {
             var updatedItem = Mapper.Map<Book>(updatedItemView);
 
-            db.books.Attach(updatedItem);
-            db.Entry(updatedItem).State = EntityState.Modified;
-            db.SaveChanges();
+            bookBL.update(updatedItem);
 
             return RedirectToAction("Index");
         }
 
         public ActionResult Delete(Guid id)
         {
-            Book itemToDelete = db.books.Where(item => item.id.Equals(id)).FirstOrDefault();
-            db.books.Remove(itemToDelete);
-            db.SaveChanges();
+            bookBL.delete(id);
 
             return RedirectToAction("Index");
         }

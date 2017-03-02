@@ -13,16 +13,16 @@ namespace Bookstore.Controllers
 {
     public class AuthorsController : Controller
     {
-        readonly IAuthorBL businessLayer;
+        readonly IAuthorBL authorBL;
 
-        public AuthorsController(IAuthorBL _businessLayer)
+        public AuthorsController(IAuthorBL authorBL)
         {
-            businessLayer = _businessLayer;
+            this.authorBL = authorBL;
         }
 
         public ActionResult Index()
         {
-            var itemList = businessLayer.findAll();
+            var itemList = authorBL.findAll();
 
             var itemListView = new List<AuthorViewModel>();
 
@@ -44,16 +44,16 @@ namespace Bookstore.Controllers
         {
             var createdItem = Mapper.Map<Author>(createdItemView);
 
-            createdItem.id = Guid.NewGuid();
+            //createdItem.id = Guid.NewGuid();
 
-            businessLayer.create(createdItem);
+            authorBL.create(createdItem);
 
             return RedirectToAction("Index");
         }
 
         public ActionResult Details(Guid id)
         {
-            var itemToDetail = businessLayer.findByKey(id);
+            var itemToDetail = authorBL.findByKey(id);
 
             var itemToDetailView = Mapper.Map<AuthorViewModel>(itemToDetail);
 
@@ -62,7 +62,7 @@ namespace Bookstore.Controllers
 
         public ActionResult Update(Guid id)
         {
-            var itemToUpdate = businessLayer.findByKey(id);
+            var itemToUpdate = authorBL.findByKey(id);
 
             var itemToUpdateView = Mapper.Map<AuthorViewModel>(itemToUpdate);
             return View(itemToUpdateView);
@@ -73,14 +73,14 @@ namespace Bookstore.Controllers
         {
             var updatedItem = Mapper.Map<Author>(updatedItemView);
 
-            businessLayer.update(updatedItem);
+            authorBL.update(updatedItem);
 
             return RedirectToAction("Index");
         }
 
         public ActionResult Delete(Guid id)
         {
-            businessLayer.delete(id);
+            authorBL.delete(id);
 
             return RedirectToAction("Index");
         }

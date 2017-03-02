@@ -9,41 +9,43 @@ namespace Bookstore.BL
 {
     public class ISBNBL : IISBNBL
     {
-        readonly IISBNDal dal;
+        readonly IISBNDal isbnDal;
 
-        public ISBNBL(IISBNDal _dal)
+        public ISBNBL(IISBNDal _isbnDal)
         {
-            dal = _dal;
+            isbnDal = _isbnDal;
         }
         
         public int create(ISBN entity)
         {
-            dal.save(entity);
+            entity.id = Guid.NewGuid();
+
+            isbnDal.save(entity);
 
             return 0;
         }
 
         public int delete(Guid key)
         {
-            var itemToDelete = dal.findByKey(key);
-            dal.delete(itemToDelete);
+            var itemToDelete = isbnDal.findByKey(key);
+            isbnDal.delete(itemToDelete);
 
             return 0;
         }
 
         public List<ISBN> findAll()
         {
-            return dal.findAll();
+            return isbnDal.findAll();
         }
 
         public ISBN findByKey(Guid key)
         {
-            return dal.findByKey(key);
+            return isbnDal.findByKey(key);
         }
 
         public int update(ISBN entity)
         {
-            dal.update(entity);
+            isbnDal.update(entity);
 
             return 0;
         }

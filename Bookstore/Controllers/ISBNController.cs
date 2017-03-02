@@ -13,16 +13,16 @@ namespace Bookstore.Controllers
 {
     public class ISBNController : Controller
     {
-        readonly IISBNBL businessLayer;
+        readonly IISBNBL isbnBL;
 
-        public ISBNController(IISBNBL _businessLayer)
+        public ISBNController(IISBNBL _isbnBL)
         {
-            businessLayer = _businessLayer;
+            isbnBL = _isbnBL;
         }
 
         public ActionResult Index()
         {
-            var itemList = businessLayer.findAll();
+            var itemList = isbnBL.findAll();
 
             var itemListView = new List<ISBNViewModel>();
 
@@ -43,16 +43,16 @@ namespace Bookstore.Controllers
         public ActionResult Create(ISBNViewModel createdItemView)
         {
             var createdItem = Mapper.Map<ISBN>(createdItemView);
-            createdItem.id = Guid.NewGuid();
+            //createdItem.id = Guid.NewGuid();
 
-            businessLayer.create(createdItem);
+            isbnBL.create(createdItem);
 
             return RedirectToAction("Index");
         }
 
         public ActionResult Details(Guid id)
         {
-            var itemToDetail = businessLayer.findByKey(id);
+            var itemToDetail = isbnBL.findByKey(id);
 
             var itemToDetailView = Mapper.Map<ISBNViewModel>(itemToDetail);
 
@@ -61,7 +61,7 @@ namespace Bookstore.Controllers
 
         public ActionResult Update(Guid id)
         {
-            var itemToUpdate = businessLayer.findByKey(id);
+            var itemToUpdate = isbnBL.findByKey(id);
 
             var itemToUpdateView = Mapper.Map<ISBNViewModel>(itemToUpdate);
 
@@ -73,14 +73,14 @@ namespace Bookstore.Controllers
         {
             var updatedItem = Mapper.Map<ISBN>(updatedItemView);
 
-            businessLayer.update(updatedItem);
+            isbnBL.update(updatedItem);
 
             return RedirectToAction("Index");
         }
 
         public ActionResult Delete(Guid id)
         {
-            businessLayer.delete(id);
+            isbnBL.delete(id);
 
             return RedirectToAction("Index");
         }

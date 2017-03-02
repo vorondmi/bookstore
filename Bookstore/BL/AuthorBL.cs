@@ -9,41 +9,43 @@ namespace Bookstore.BL
 {
     public class AuthorBL : IAuthorBL
     {
-        readonly IAuthorDal dal;
+        readonly IAuthorDal authorDal;
 
-        public AuthorBL(IAuthorDal _dal)
+        public AuthorBL(IAuthorDal _authorDal)
         {
-            dal = _dal;
+            authorDal = _authorDal;
         }
 
         public int create(Author entity)
         {
-            dal.save(entity);
+            entity.id = Guid.NewGuid();
+
+            authorDal.save(entity);
 
             return 0;
         }
 
         public int delete(Guid key)
         {
-            var itemToDelete = dal.findByKey(key);
-            dal.delete(itemToDelete);
+            var itemToDelete = authorDal.findByKey(key);
+            authorDal.delete(itemToDelete);
 
             return 0;
         }
 
         public List<Author> findAll()
         {
-            return dal.findAll();
+            return authorDal.findAll();
         }
 
         public Author findByKey(Guid key)
         {
-            return dal.findByKey(key);
+            return authorDal.findByKey(key);
         }
 
         public int update(Author entity)
         {
-            dal.update(entity);
+            authorDal.update(entity);
 
             return 0;
         }

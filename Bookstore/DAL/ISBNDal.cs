@@ -44,7 +44,8 @@ namespace Bookstore.DAL
 
         public int update(ISBN entity)
         {
-            db.isbns.Attach(entity);
+            
+            //db.isbns.Attach(entity);
             db.Entry(entity).State = EntityState.Modified;
             db.SaveChanges();
 
