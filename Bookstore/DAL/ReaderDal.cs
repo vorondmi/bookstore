@@ -16,7 +16,7 @@ namespace Bookstore.DAL
             db = _db;
         }
 
-        public int delete(Reader entity)
+        public int DeleteReader(Reader entity)
         {
             db.readers.Remove(entity);
             db.SaveChanges();
@@ -24,17 +24,17 @@ namespace Bookstore.DAL
             return 0;
         }
 
-        public List<Reader> findAll()
+        public List<Reader> GetAllReaders()
         {
             return db.readers.ToList();
         }
 
-        public Reader findByKey(Guid key)
+        public Reader FindReaderById(Guid id)
         {
-            return db.readers.Where(a => a.id.Equals(key)).FirstOrDefault();
+            return db.readers.Where(a => a.id.Equals(id)).FirstOrDefault();
         }
 
-        public int save(Reader entity)
+        public int SaveReader(Reader entity)
         {
             db.readers.Add(entity);
             db.SaveChanges();
@@ -42,7 +42,7 @@ namespace Bookstore.DAL
             return 0;
         }
 
-        public int update(Reader entity)
+        public int UpdateReader(Reader entity)
         {
             var entityToUpdate = db.readers.Find(entity.id);
             db.Entry(entityToUpdate).CurrentValues.SetValues(entity);

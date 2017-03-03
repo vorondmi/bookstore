@@ -9,10 +9,10 @@ namespace Bookstore.DAL
 {
     public interface IISBNDal
     {
-        List<ISBN> findAll();
-        ISBN findByKey(Guid key);
-        int save(ISBN entity);
-        int update(ISBN entity);
-        int delete(ISBN entity);
+        List<ISBN> GetAllISBNs();
+        ISBN FindISBNById(Guid key);
+        int SaveISBN(ISBN entity);
+        int UpdateISBN(ISBN entity);
+        int DeleteISBN(ISBN entity);
     }
 }

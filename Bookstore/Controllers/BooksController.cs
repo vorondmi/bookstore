@@ -28,7 +28,7 @@ namespace Bookstore.Controllers
 
         public ActionResult Index()
         {
-            var itemList = bookBL.findAll();
+            var itemList = bookBL.GetAllBooks();
 
             var itemListView = new List<BookViewModel>();
 
@@ -43,11 +43,11 @@ namespace Bookstore.Controllers
         public ActionResult Create()
         {
             BookViewModel book = new BookViewModel();
-            book.authors = authorBL.findAll();
-            book.isbns = isbnBL.findAll();
+            book.authors = authorBL.GetAllAuthors();
+            book.isbns = isbnBL.GetAllISBNs();
 
             book.readerCheckBoxes = new List<CheckBoxModel>();
-            foreach(Reader r in readerBL.findAll())
+            foreach(Reader r in readerBL.GetAllReaders())
             {
                 book.readerCheckBoxes.Add(new CheckBoxModel(r.id, r.name, false));
             }
@@ -61,7 +61,7 @@ namespace Bookstore.Controllers
             var createdItem = Mapper.Map<Book>(createdItemView);
 
             List<Guid> readerIDs = createdItemView.readerCheckBoxes.Where(r => r.Checked).Select(cb => cb.id).ToList();
-            if (bookBL.create(createdItem, createdItemView.authorID, createdItemView.isbnID, readerIDs) == 0)
+            if (bookBL.CreateBook(createdItem, createdItemView.authorID, createdItemView.isbnID, readerIDs) == 0)
             {
                 return RedirectToAction("Index");
             }
@@ -71,7 +71,7 @@ namespace Bookstore.Controllers
 
         public ActionResult Details(Guid id)
         {
-            var itemToDetail = bookBL.findByKey(id);
+            var itemToDetail = bookBL.FindBookById(id);
 
             var itemToDetailView = Mapper.Map<BookViewModel>(itemToDetail);
 
@@ -80,10 +80,10 @@ namespace Bookstore.Controllers
 
         public ActionResult Update(Guid id)
         {
-            var itemToUpdate = bookBL.findByKey(id);
+            var itemToUpdate = bookBL.FindBookById(id);
 
             var itemToUpdateView = Mapper.Map<BookViewModel>(itemToUpdate);
-            itemToUpdateView.authors = authorBL.findAll();
+            itemToUpdateView.authors = authorBL.GetAllAuthors();
 
             return View(itemToUpdateView);
         }
@@ -93,7 +93,7 @@ namespace Bookstore.Controllers
         {
             var updatedItem = Mapper.Map<Book>(updatedItemView);
 
-            if (bookBL.update(updatedItem) == 0)
+            if (bookBL.UpdateBook(updatedItem) == 0)
             {
                 return RedirectToAction("Index");
             }
@@ -103,7 +103,7 @@ namespace Bookstore.Controllers
 
         public ActionResult Delete(Guid id)
         {
-            bookBL.delete(id);
+            bookBL.DeleteBookById(id);
 
             return RedirectToAction("Index");
         }

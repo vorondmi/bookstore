@@ -9,10 +9,10 @@ namespace Bookstore.BL
 {
     public interface IReaderBL
     {
-        int create(Reader entity);
-        Reader findByKey(Guid key);
-        int delete(Guid key);
-        List<Reader> findAll();
-        int update(Reader entity);
+        int CreateReader(Reader entity);
+        Reader FindReaderById(Guid key);
+        int DeleteReaderById(Guid key);
+        List<Reader> GetAllReaders();
+        int UpdateReader(Reader entity);
     }
 }

@@ -16,42 +16,43 @@ namespace Bookstore.BL
             authorDal = _authorDal;
         }
 
-        public int create(Author entity)
+        public int CreateAuthor(Author entity)
         {
             if (ValidationService.EntityIsValid(entity))
             {
                 entity.id = Guid.NewGuid();
 
-                authorDal.save(entity);
+                authorDal.SaveAuthor(entity);
                 return 0;
             }
 
             return -1;
         }
 
-        public int delete(Guid key)
+        public int DeleteAuthorById(Guid id)
         {
-            var itemToDelete = authorDal.findByKey(key);
-            authorDal.delete(itemToDelete);
+            var itemToDelete = authorDal.FindAuthorById(id);
+            authorDal.DeleteAuthor(itemToDelete);
 
             return 0;
         }
 
-        public List<Author> findAll()
+        public List<Author> GetAllAuthors()
         {
-            return authorDal.findAll();
+            return authorDal.GetAllAuthors();
         }
 
-        public Author findByKey(Guid key)
+        public Author FindAuthorByKey(Guid key)
         {
-            return authorDal.findByKey(key);
+            return authorDal.FindAuthorById(key);
         }
 
-        public int update(Author entity)
+        public int UpdateAuthor(Author entity)
         {
+            //pasikeisti su fluent validator
             if (ValidationService.EntityIsValid(entity))
             {
-                authorDal.update(entity);
+                authorDal.UpdateAuthor(entity);
 
                 return 0;
             }

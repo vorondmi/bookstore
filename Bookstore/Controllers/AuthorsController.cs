@@ -22,14 +22,12 @@ namespace Bookstore.Controllers
 
         public ActionResult Index()
         {
-            var itemList = authorBL.findAll();
+            var itemList = authorBL.GetAllAuthors();
 
-            var itemListView = new List<AuthorViewModel>();
 
-            foreach(var item in itemList)
-            {
-                itemListView.Add(Mapper.Map<AuthorViewModel>(item));
-            }
+            var itemListView = Mapper.Map<List<AuthorViewModel>>(itemList);
+
+            
 
             return View(itemListView);
         }
@@ -44,7 +42,7 @@ namespace Bookstore.Controllers
         {
             var createdItem = Mapper.Map<Author>(createdItemView);
 
-            if (authorBL.create(createdItem) == 0)
+            if (authorBL.CreateAuthor(createdItem) == 0)
             {
                 return RedirectToAction("Index");
             }
@@ -54,7 +52,7 @@ namespace Bookstore.Controllers
 
         public ActionResult Details(Guid id)
         {
-            var itemToDetail = authorBL.findByKey(id);
+            var itemToDetail = authorBL.FindAuthorByKey(id);
 
             var itemToDetailView = Mapper.Map<AuthorViewModel>(itemToDetail);
 
@@ -63,7 +61,7 @@ namespace Bookstore.Controllers
 
         public ActionResult Update(Guid id)
         {
-            var itemToUpdate = authorBL.findByKey(id);
+            var itemToUpdate = authorBL.FindAuthorByKey(id);
 
             var itemToUpdateView = Mapper.Map<AuthorViewModel>(itemToUpdate);
             return View(itemToUpdateView);
@@ -74,7 +72,7 @@ namespace Bookstore.Controllers
         {
             var updatedItem = Mapper.Map<Author>(updatedItemView);
 
-            if (authorBL.update(updatedItem) == 0)
+            if (authorBL.UpdateAuthor(updatedItem) == 0)
             {
                 return RedirectToAction("Index");
             }
@@ -82,9 +80,17 @@ namespace Bookstore.Controllers
             return View(updatedItemView);
         }
 
+        [HttpPost]
+        public ActionResult Update2(string updatedItemView)
+        {
+         
+
+            return View();
+        }
+
         public ActionResult Delete(Guid id)
         {
-            authorBL.delete(id);
+            authorBL.DeleteAuthorById(id);
 
             return RedirectToAction("Index");
         }

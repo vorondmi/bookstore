@@ -16,7 +16,7 @@ namespace Bookstore.DAL
             db = _db;
         }
 
-        public int delete(Book entity)
+        public int DeleteBook(Book entity)
         {
             db.books.Remove(entity);
             db.SaveChanges();
@@ -24,17 +24,17 @@ namespace Bookstore.DAL
             return 0;
         }
 
-        public List<Book> findAll()
+        public List<Book> GetAllBooks()
         {
             return db.books.ToList();
         }
 
-        public Book findByKey(Guid key)
+        public Book FindBookById(Guid id)
         {
-            return db.books.Where(a => a.id.Equals(key)).FirstOrDefault();
+            return db.books.Where(a => a.id.Equals(id)).FirstOrDefault();
         }
 
-        public int save(Book entity)
+        public int SaveBook(Book entity)
         {
             db.books.Add(entity);
             db.SaveChanges();
@@ -42,7 +42,7 @@ namespace Bookstore.DAL
             return 0;
         }
 
-        public int update(Book entity)
+        public int UpdateBook(Book entity)
         {
             var entityToUpdate = db.books.Find(entity.id);
             db.Entry(entityToUpdate).CurrentValues.SetValues(entity);

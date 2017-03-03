@@ -9,10 +9,10 @@ namespace Bookstore.DAL
 {
     public interface IBookDal
     {
-        List<Book> findAll();
-        Book findByKey(Guid key);
-        int save(Book entity);
-        int update(Book entity);
-        int delete(Book entity);
+        List<Book> GetAllBooks();
+        Book FindBookById(Guid key);
+        int SaveBook(Book entity);
+        int UpdateBook(Book entity);
+        int DeleteBook(Book entity);
     }
 }

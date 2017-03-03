@@ -11,6 +11,7 @@ namespace Bookstore.Models
     public class Book
     {
         [Key]
+      //  [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid id { get; set; }
         /// <summary>
         /// knygos pavadinimas

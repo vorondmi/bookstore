@@ -9,10 +9,10 @@ namespace Bookstore.DAL
 {
     public interface IAuthorDal
     {
-        List<Author> findAll();
-        Author findByKey(Guid key);
-        int save(Author entity);
-        int update(Author entity);
-        int delete(Author entity);
+        List<Author> GetAllAuthors();
+        Author FindAuthorById(Guid key);
+        int SaveAuthor(Author entity);
+        int UpdateAuthor(Author entity);
+        int DeleteAuthor(Author entity);
     }
 }

@@ -9,10 +9,10 @@ namespace Bookstore.BL
 {
     public interface IAuthorBL
     {
-        int create(Author entity);
-        Author findByKey(Guid key);
-        int delete(Guid key);
-        List<Author> findAll();
-        int update(Author entity);
+        int CreateAuthor(Author entity);
+        Author FindAuthorByKey(Guid key);
+        int DeleteAuthorById(Guid key);
+        List<Author> GetAllAuthors();
+        int UpdateAuthor(Author entity);
     }
 }

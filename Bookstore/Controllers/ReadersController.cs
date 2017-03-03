@@ -21,7 +21,7 @@ namespace Bookstore.Controllers
 
         public ActionResult Index()
         {
-            var itemList = readerBL.findAll();
+            var itemList = readerBL.GetAllReaders();
 
             var itemListView = new List<ReaderViewModel>();
 
@@ -43,7 +43,7 @@ namespace Bookstore.Controllers
         {
             var createdItem = Mapper.Map<Reader>(createdItemView);
 
-            if(readerBL.create(createdItem) == 0)
+            if(readerBL.CreateReader(createdItem) == 0)
             {
                 return RedirectToAction("Index");
             }
@@ -53,7 +53,7 @@ namespace Bookstore.Controllers
 
         public ActionResult Details(Guid id)
         {
-            var itemToDetail = readerBL.findByKey(id);
+            var itemToDetail = readerBL.FindReaderById(id);
 
             var itemToDetailView = Mapper.Map<ReaderViewModel>(itemToDetail);
 
@@ -62,7 +62,7 @@ namespace Bookstore.Controllers
 
         public ActionResult Update(Guid id)
         {
-            var itemToUpdate = readerBL.findByKey(id);
+            var itemToUpdate = readerBL.FindReaderById(id);
 
             var itemToUpdateView = Mapper.Map<ReaderViewModel>(itemToUpdate);
 
@@ -74,7 +74,7 @@ namespace Bookstore.Controllers
         {
             var updatedItem = Mapper.Map<Reader>(updatedItemView);
 
-            if(readerBL.update(updatedItem) == 0)
+            if(readerBL.UpdateReader(updatedItem) == 0)
             {
                 return RedirectToAction("Index");
             }
@@ -84,7 +84,7 @@ namespace Bookstore.Controllers
 
         public ActionResult Delete(Guid id)
         {
-            readerBL.delete(id);
+            readerBL.DeleteReaderById(id);
 
             return RedirectToAction("Index");
         }

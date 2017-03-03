@@ -22,19 +22,19 @@ namespace Bookstore.BL
             readerBL = _readerBL;
         }
 
-        public int create(Book entity, Guid authorID, Guid isbnID, List<Guid> readerIDs)
+        public int CreateBook(Book entity, Guid authorID, Guid isbnID, List<Guid> readerIDs)
         {
             if (ValidationService.EntityIsValid(entity))
             {
                 entity.id = Guid.NewGuid();
 
-                entity.author = authorBL.findByKey(authorID);
-                entity.isbn = isbnBL.findByKey(isbnID);
+                entity.author = authorBL.FindAuthorByKey(authorID);
+                entity.isbn = isbnBL.FindISBNById(isbnID);
 
-                var readerList = readerBL.findAll();
+                var readerList = readerBL.GetAllReaders();
                 entity.readers = readerList.Where(r => readerIDs.Any(i => i.Equals(r.id))).ToList();
 
-                bookDal.save(entity);
+                bookDal.SaveBook(entity);
 
                 return 0;
             }
@@ -42,29 +42,29 @@ namespace Bookstore.BL
             return -1;
         }
 
-        public int delete(Guid key)
+        public int DeleteBookById(Guid id)
         {
-            var itemToDelete = bookDal.findByKey(key);
-            bookDal.delete(itemToDelete);
+            var itemToDelete = bookDal.FindBookById(id);
+            bookDal.DeleteBook(itemToDelete);
 
             return 0;
         }
 
-        public List<Book> findAll()
+        public List<Book> GetAllBooks()
         {
-            return bookDal.findAll();
+            return bookDal.GetAllBooks();
         }
 
-        public Book findByKey(Guid key)
+        public Book FindBookById(Guid key)
         {
-            return bookDal.findByKey(key);
+            return bookDal.FindBookById(key);
         }
 
-        public int update(Book entity)
+        public int UpdateBook(Book entity)
         {
             if (ValidationService.EntityIsValid(entity))
             {
-                bookDal.update(entity);
+                bookDal.UpdateBook(entity);
 
                 return 0;
             }

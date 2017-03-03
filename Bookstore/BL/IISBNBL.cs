@@ -9,10 +9,10 @@ namespace Bookstore.BL
 {
     public interface IISBNBL
     {
-        int create(ISBN entity);
-        ISBN findByKey(Guid key);
-        int delete(Guid key);
-        List<ISBN> findAll();
-        int update(ISBN entity);
+        int CreateISBN(ISBN entity);
+        ISBN FindISBNById(Guid key);
+        int DeleteISBNById(Guid key);
+        List<ISBN> GetAllISBNs();
+        int UpdateISBN(ISBN entity);
     }
 }

@@ -22,7 +22,7 @@ namespace Bookstore.Controllers
 
         public ActionResult Index()
         {
-            var itemList = isbnBL.findAll();
+            var itemList = isbnBL.GetAllISBNs();
 
             var itemListView = new List<ISBNViewModel>();
 
@@ -44,7 +44,7 @@ namespace Bookstore.Controllers
         {
             var createdItem = Mapper.Map<ISBN>(createdItemView);
 
-            if(isbnBL.create(createdItem) == 0)
+            if(isbnBL.CreateISBN(createdItem) == 0)
             {
                 return RedirectToAction("Index");
             }
@@ -54,7 +54,7 @@ namespace Bookstore.Controllers
 
         public ActionResult Details(Guid id)
         {
-            var itemToDetail = isbnBL.findByKey(id);
+            var itemToDetail = isbnBL.FindISBNById(id);
 
             var itemToDetailView = Mapper.Map<ISBNViewModel>(itemToDetail);
 
@@ -63,7 +63,7 @@ namespace Bookstore.Controllers
 
         public ActionResult Update(Guid id)
         {
-            var itemToUpdate = isbnBL.findByKey(id);
+            var itemToUpdate = isbnBL.FindISBNById(id);
 
             var itemToUpdateView = Mapper.Map<ISBNViewModel>(itemToUpdate);
 
@@ -75,7 +75,7 @@ namespace Bookstore.Controllers
         {
             var updatedItem = Mapper.Map<ISBN>(updatedItemView);
 
-            if(isbnBL.update(updatedItem) == 0)
+            if(isbnBL.UpdateISBN(updatedItem) == 0)
             {
                 return RedirectToAction("Index");
             }
@@ -85,7 +85,7 @@ namespace Bookstore.Controllers
 
         public ActionResult Delete(Guid id)
         {
-            isbnBL.delete(id);
+            isbnBL.DeleteISBNById(id);
 
             return RedirectToAction("Index");
         }

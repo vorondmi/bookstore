@@ -16,13 +16,13 @@ namespace Bookstore.BL
             readerDal = _readerDal;
         }
 
-        public int create(Reader entity)
+        public int CreateReader(Reader entity)
         {
             if (ValidationService.EntityIsValid(entity))
             {
                 entity.id = Guid.NewGuid();
 
-                readerDal.save(entity);
+                readerDal.SaveReader(entity);
 
                 return 0;
             }
@@ -30,29 +30,29 @@ namespace Bookstore.BL
             return -1;
         }
 
-        public int delete(Guid key)
+        public int DeleteReaderById(Guid id)
         {
-            var itemToDelete = readerDal.findByKey(key);
-            readerDal.delete(itemToDelete);
+            var itemToDelete = readerDal.FindReaderById(id);
+            readerDal.DeleteReader(itemToDelete);
 
             return 0;
         }
 
-        public List<Reader> findAll()
+        public List<Reader> GetAllReaders()
         {
-            return readerDal.findAll();
+            return readerDal.GetAllReaders();
         }
 
-        public Reader findByKey(Guid key)
+        public Reader FindReaderById(Guid id)
         {
-            return readerDal.findByKey(key);
+            return readerDal.FindReaderById(id);
         }
 
-        public int update(Reader entity)
+        public int UpdateReader(Reader entity)
         {
             if (ValidationService.EntityIsValid(entity))
             {
-                readerDal.update(entity);
+                readerDal.UpdateReader(entity);
 
                 return 0;
             }

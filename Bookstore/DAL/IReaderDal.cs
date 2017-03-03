@@ -9,10 +9,10 @@ namespace Bookstore.DAL
 {
     public interface IReaderDal
     {
-        List<Reader> findAll();
-        Reader findByKey(Guid key);
-        int save(Reader entity);
-        int update(Reader entity);
-        int delete(Reader entity);
+        List<Reader> GetAllReaders();
+        Reader FindReaderById(Guid key);
+        int SaveReader(Reader entity);
+        int UpdateReader(Reader entity);
+        int DeleteReader(Reader entity);
     }
 }

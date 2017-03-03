@@ -17,41 +17,41 @@ namespace Bookstore.BL
             isbnDal = _isbnDal;
         }
         
-        public int create(ISBN entity)
+        public int CreateISBN(ISBN entity)
         {
             if(ValidationService.EntityIsValid(entity))
             {
                 entity.id = Guid.NewGuid();
-                isbnDal.save(entity);
+                isbnDal.SaveISBN(entity);
                 return 0;
             }
             
             return -1;
         }
 
-        public int delete(Guid key)
+        public int DeleteISBNById(Guid key)
         {
-            var itemToDelete = isbnDal.findByKey(key);
-            isbnDal.delete(itemToDelete);
+            var itemToDelete = isbnDal.FindISBNById(key);
+            isbnDal.DeleteISBN(itemToDelete);
 
             return 0;
         }
 
-        public List<ISBN> findAll()
+        public List<ISBN> GetAllISBNs()
         {
-            return isbnDal.findAll();
+            return isbnDal.GetAllISBNs();
         }
 
-        public ISBN findByKey(Guid key)
+        public ISBN FindISBNById(Guid id)
         {
-            return isbnDal.findByKey(key);
+            return isbnDal.FindISBNById(id);
         }
 
-        public int update(ISBN entity)
+        public int UpdateISBN(ISBN entity)
         {
             if (ValidationService.EntityIsValid(entity))
             {
-                isbnDal.update(entity);
+                isbnDal.UpdateISBN(entity);
 
                 return 0;
             }

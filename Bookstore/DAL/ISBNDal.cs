@@ -16,7 +16,7 @@ namespace Bookstore.DAL
             db = _db;
         }
 
-        public int save(ISBN entity)
+        public int SaveISBN(ISBN entity)
         {
             db.isbns.Add(entity);
             db.SaveChanges();
@@ -24,7 +24,7 @@ namespace Bookstore.DAL
             return 0;
         }
 
-        public int delete(ISBN entity)
+        public int DeleteISBN(ISBN entity)
         {
             db.isbns.Remove(entity);
             db.SaveChanges();
@@ -32,17 +32,17 @@ namespace Bookstore.DAL
             return 0;
         }
 
-        public List<ISBN> findAll()
+        public List<ISBN> GetAllISBNs()
         {
             return db.isbns.ToList();
         }
 
-        public ISBN findByKey(Guid key)
+        public ISBN FindISBNById(Guid id)
         {
-            return db.isbns.Where(i => i.id.Equals(key)).FirstOrDefault();
+            return db.isbns.Where(i => i.id.Equals(id)).FirstOrDefault();
         }
 
-        public int update(ISBN entity)
+        public int UpdateISBN(ISBN entity)
         {
             //db.isbns.Attach(entity);
             //db.Entry(entity).State = EntityState.Modified;
