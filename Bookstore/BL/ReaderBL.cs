@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using Bookstore.Models;
 using Bookstore.DAL;
+using Bookstore.Services;
 
 namespace Bookstore.BL
 {
@@ -11,14 +12,17 @@ namespace Bookstore.BL
     {
         readonly IReaderDal readerDal;
 
-        public ReaderBL(IReaderDal _readerDal)
+        readonly IValidationService validationService;
+
+        public ReaderBL(IReaderDal _readerDal, IValidationService _validationService)
         {
             readerDal = _readerDal;
+            validationService = _validationService;
         }
 
         public int CreateReader(Reader entity)
         {
-            if (ValidationService.EntityIsValid(entity))
+            if (validationService.EntityIsValid(entity))
             {
                 entity.id = Guid.NewGuid();
 
@@ -50,7 +54,7 @@ namespace Bookstore.BL
 
         public int UpdateReader(Reader entity)
         {
-            if (ValidationService.EntityIsValid(entity))
+            if (validationService.EntityIsValid(entity))
             {
                 readerDal.UpdateReader(entity);
 

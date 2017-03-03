@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using Bookstore.Models;
 using Bookstore.DAL;
+using Bookstore.Services;
 
 namespace Bookstore.BL
 {
@@ -14,17 +15,25 @@ namespace Bookstore.BL
         readonly IISBNBL isbnBL;
         readonly IReaderBL readerBL;
 
-        public BookBL(IBookDal _bookDal, IAuthorBL _authorBL, IISBNBL _isbnBL, IReaderBL _readerBL)
+        readonly IValidationService validationService;
+
+        public BookBL(
+            IBookDal _bookDal, 
+            IAuthorBL _authorBL, 
+            IISBNBL _isbnBL, 
+            IReaderBL _readerBL, 
+            IValidationService _validationService)
         {
             bookDal = _bookDal;
             authorBL = _authorBL;
             isbnBL = _isbnBL;
             readerBL = _readerBL;
+            validationService = _validationService;
         }
 
         public int CreateBook(Book entity, Guid authorID, Guid isbnID, List<Guid> readerIDs)
         {
-            if (ValidationService.EntityIsValid(entity))
+            if (validationService.EntityIsValid(entity))
             {
                 entity.id = Guid.NewGuid();
 
@@ -62,7 +71,7 @@ namespace Bookstore.BL
 
         public int UpdateBook(Book entity)
         {
-            if (ValidationService.EntityIsValid(entity))
+            if (validationService.EntityIsValid(entity))
             {
                 bookDal.UpdateBook(entity);
 

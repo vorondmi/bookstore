@@ -4,21 +4,24 @@ using System.Linq;
 using System.Web;
 using Bookstore.Models;
 using Bookstore.DAL;
+using Bookstore.Services;
 
 namespace Bookstore.BL
 {
     public class AuthorBL : IAuthorBL
     {
         readonly IAuthorDal authorDal;
+        readonly IValidationService validationService;
 
-        public AuthorBL(IAuthorDal _authorDal)
+        public AuthorBL(IAuthorDal _authorDal, IValidationService _validationService)
         {
             authorDal = _authorDal;
+            validationService = _validationService;
         }
 
         public int CreateAuthor(Author entity)
         {
-            if (ValidationService.EntityIsValid(entity))
+            if (validationService.EntityIsValid(entity))
             {
                 entity.id = Guid.NewGuid();
 
@@ -49,8 +52,7 @@ namespace Bookstore.BL
 
         public int UpdateAuthor(Author entity)
         {
-            //pasikeisti su fluent validator
-            if (ValidationService.EntityIsValid(entity))
+            if (validationService.EntityIsValid(entity))
             {
                 authorDal.UpdateAuthor(entity);
 

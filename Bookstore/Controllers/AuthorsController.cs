@@ -80,14 +80,6 @@ namespace Bookstore.Controllers
             return View(updatedItemView);
         }
 
-        [HttpPost]
-        public ActionResult Update2(string updatedItemView)
-        {
-         
-
-            return View();
-        }
-
         public ActionResult Delete(Guid id)
         {
             authorBL.DeleteAuthorById(id);

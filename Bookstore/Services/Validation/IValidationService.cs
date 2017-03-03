@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Bookstore.Services
 {
-    interface IValidationService
+    public interface IValidationService
     {
-        
+        bool EntityIsValid(object entityToValidate); 
     }
 }

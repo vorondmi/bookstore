@@ -237,9 +237,13 @@
     <Compile Include="BL\IReaderBL.cs" />
     <Compile Include="BL\ISBNBL.cs" />
     <Compile Include="BL\ReaderBL.cs" />
-    <Compile Include="Services\BLResponse.cs" />
-    <Compile Include="Services\IValidationService.cs" />
-    <Compile Include="Services\ValidationService.cs" />
+    <Compile Include="Services\Validation\AuthorValidator.cs" />
+    <Compile Include="Services\Validation\BLResponse.cs" />
+    <Compile Include="Services\Validation\BookValidator.cs" />
+    <Compile Include="Services\Validation\ISBNValidator.cs" />
+    <Compile Include="Services\Validation\IValidationService.cs" />
+    <Compile Include="Services\Validation\ReaderValidator.cs" />
+    <Compile Include="Services\Validation\ValidationService.cs" />
     <Compile Include="Controllers\AuthorsController.cs" />
     <Compile Include="Controllers\BooksController.cs" />
     <Compile Include="Controllers\HomeController.cs" />

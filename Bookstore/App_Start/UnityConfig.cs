@@ -4,6 +4,7 @@ using Microsoft.Practices.Unity.Configuration;
 using Bookstore.Models;
 using Bookstore.DAL;
 using Bookstore.BL;
+using Bookstore.Services;
 
 namespace Bookstore.App_Start
 {
@@ -48,6 +49,8 @@ namespace Bookstore.App_Start
             container.RegisterType<IAuthorBL, AuthorBL>();
             container.RegisterType<IBookBL, BookBL>();
             container.RegisterType<IReaderBL, ReaderBL>();
+
+            container.RegisterType<IValidationService, ValidationService>();
             // TODO: Register your types here
             // container.RegisterType<IProductRepository, ProductRepository>();
         }

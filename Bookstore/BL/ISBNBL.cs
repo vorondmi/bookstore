@@ -5,6 +5,7 @@ using System.Web;
 using Bookstore.Models;
 using Bookstore.DAL;
 using System.ComponentModel.DataAnnotations;
+using Bookstore.Services;
 
 namespace Bookstore.BL
 {
@@ -12,14 +13,17 @@ namespace Bookstore.BL
     {
         readonly IISBNDal isbnDal;
 
-        public ISBNBL(IISBNDal _isbnDal)
+        readonly IValidationService validationService;
+
+        public ISBNBL(IISBNDal _isbnDal, IValidationService _validationService)
         {
             isbnDal = _isbnDal;
+            validationService = _validationService;
         }
         
         public int CreateISBN(ISBN entity)
         {
-            if(ValidationService.EntityIsValid(entity))
+            if(validationService.EntityIsValid(entity))
             {
                 entity.id = Guid.NewGuid();
                 isbnDal.SaveISBN(entity);
@@ -49,7 +53,7 @@ namespace Bookstore.BL
 
         public int UpdateISBN(ISBN entity)
         {
-            if (ValidationService.EntityIsValid(entity))
+            if (validationService.EntityIsValid(entity))
             {
                 isbnDal.UpdateISBN(entity);
 

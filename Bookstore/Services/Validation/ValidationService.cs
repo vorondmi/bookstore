@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
+using Bookstore.Services;
 
 namespace Bookstore.BL
 {
-    public class ValidationService
+    public class ValidationService : IValidationService
     {
-        public static bool EntityIsValid(object entityToValidate)
+        public bool EntityIsValid(object entityToValidate)
         {
             return Validator.TryValidateObject(
                 entityToValidate, 
