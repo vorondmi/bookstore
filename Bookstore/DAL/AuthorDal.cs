@@ -19,6 +19,7 @@ namespace Bookstore.DAL
         public int DeleteAuthor(Author entity)
         {
             db.authors.Remove(entity);
+            db.SaveChanges();
 
             return 0;
         }

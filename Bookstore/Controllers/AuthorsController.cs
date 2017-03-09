@@ -24,10 +24,7 @@ namespace Bookstore.Controllers
         {
             var itemList = authorBL.GetAllAuthors();
 
-
             var itemListView = Mapper.Map<List<AuthorViewModel>>(itemList);
-
-            
 
             return View(itemListView);
         }

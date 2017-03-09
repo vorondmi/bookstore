@@ -5,6 +5,9 @@ using Bookstore.Models;
 using Bookstore.DAL;
 using Bookstore.BL;
 using Bookstore.Services;
+using FluentValidation;
+using Bookstore.Services.Validation;
+using Bookstore.Controllers;
 
 namespace Bookstore.App_Start
 {
@@ -50,7 +53,11 @@ namespace Bookstore.App_Start
             container.RegisterType<IBookBL, BookBL>();
             container.RegisterType<IReaderBL, ReaderBL>();
 
+            container.RegisterType<IValidator<Author>, AuthorValidator>();
+
             container.RegisterType<IValidationService, ValidationService>();
+
+            container.RegisterType<AuthorsApiController>();
             // TODO: Register your types here
             // container.RegisterType<IProductRepository, ProductRepository>();
         }

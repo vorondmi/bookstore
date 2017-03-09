@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Bookstore.ViewModels.AuthorViewModel>
+﻿@*@model IEnumerable<Bookstore.ViewModels.AuthorViewModel>
 
 @using Bookstore.Models
 
@@ -18,6 +18,13 @@
         </tr>
     }
 </table>
-@Html.ActionLink("New author", "Create", "Authors") <br />
+@Html.ActionLink("New author", "Create", "Authors") <br />*@
 
+<div ng-controller="AuthorController as authorCtrl">
+    <table border="1">
+        <tr ng-repeat="author in authors">
+            <td ng-bind="author"></td>
+        </tr>
+    </table>
+</div>
 
