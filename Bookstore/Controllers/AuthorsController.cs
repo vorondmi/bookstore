@@ -22,38 +22,17 @@ namespace Bookstore.Controllers
 
         public ActionResult Index()
         {
-            var itemList = authorBL.GetAllAuthors();
-
-            var itemListView = Mapper.Map<List<AuthorViewModel>>(itemList);
-
-            return View(itemListView);
+            return View();
         }
 
         public ActionResult Create()
         {
-            return View(new AuthorViewModel());
+            return View();
         }
 
-        [HttpPost]
-        public ActionResult Create(AuthorViewModel createdItemView)
+        public ActionResult Details()
         {
-            var createdItem = Mapper.Map<Author>(createdItemView);
-
-            if (authorBL.CreateAuthor(createdItem) == 0)
-            {
-                return RedirectToAction("Index");
-            }
-
-            return View(createdItemView);
-        }
-
-        public ActionResult Details(Guid id)
-        {
-            var itemToDetail = authorBL.FindAuthorByKey(id);
-
-            var itemToDetailView = Mapper.Map<AuthorViewModel>(itemToDetail);
-
-            return View(itemToDetailView);
+            return View();
         }
 
         public ActionResult Update(Guid id)

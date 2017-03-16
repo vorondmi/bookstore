@@ -1,6 +1,14 @@
-﻿@model Bookstore.ViewModels.BookViewModel
+﻿@*@model Bookstore.ViewModels.BookViewModel
 
 @Html.DisplayFor(m => m.bookTitle) <br />
 @Html.DisplayFor(m => m.release) <br />
 
-@Html.ActionLink("Book list", "Index", "Books") <br />
+@Html.ActionLink("Book list", "Index", "Books") <br />*@
+
+<div ng-controller="BookController as bookCtrl" ng-init="initialiseDetails()">
+    <table border="1">
+        <tr ng-repeat="(key,val) in detailedBook">
+            <td ng-bind="key"></td><td ng-bind="val"></td>
+        </tr>
+    </table>
+</div>

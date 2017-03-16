@@ -28,64 +28,37 @@ namespace Bookstore.Controllers
 
         public ActionResult Index()
         {
-            var itemList = bookBL.GetAllBooks();
-
-            var itemListView = new List<BookViewModel>();
-
-            foreach (var item in itemList)
-            {
-                itemListView.Add(Mapper.Map<BookViewModel>(item));
-            }
-
-            return View(itemListView);
+            return View();
         }
 
         public ActionResult Create()
         {
-            BookViewModel book = new BookViewModel();
-            book.authors = authorBL.GetAllAuthors();
-            book.isbns = isbnBL.GetAllISBNs();
-
-            book.readerCheckBoxes = new List<CheckBoxModel>();
-            foreach(Reader r in readerBL.GetAllReaders())
-            {
-                book.readerCheckBoxes.Add(new CheckBoxModel(r.id, r.name, false));
-            }
-
-            return View(book);
+            return View();
         }
 
         [HttpPost]
         public ActionResult Create(BookViewModel createdItemView)
         {
-            var createdItem = Mapper.Map<Book>(createdItemView);
+            //var createdItem = Mapper.Map<Book>(createdItemView);
 
-            List<Guid> readerIDs = createdItemView.readerCheckBoxes.Where(r => r.Checked).Select(cb => cb.id).ToList();
-            if (bookBL.CreateBook(createdItem, createdItemView.authorID, createdItemView.isbnID, readerIDs) == 0)
-            {
-                return RedirectToAction("Index");
-            }
+            //List<Guid> readerIDs = createdItemView.readerCheckBoxes.Where(r => r.Checked).Select(cb => cb.id).ToList();
+            //if (bookBL.CreateBook(createdItem, createdItemView.authorID, createdItemView.isbnID, readerIDs) == 0)
+            //{
+            //    return RedirectToAction("Index");
+            //}
 
-            return View(createdItemView);
+            //return View(createdItemView);
+            return View();
         }
 
-        public ActionResult Details(Guid id)
+        public ActionResult Details()
         {
-            var itemToDetail = bookBL.FindBookById(id);
-
-            var itemToDetailView = Mapper.Map<BookViewModel>(itemToDetail);
-
-            return View(itemToDetailView);
+            return View();
         }
 
         public ActionResult Update(Guid id)
         {
-            var itemToUpdate = bookBL.FindBookById(id);
-
-            var itemToUpdateView = Mapper.Map<BookViewModel>(itemToUpdate);
-            itemToUpdateView.authors = authorBL.GetAllAuthors();
-
-            return View(itemToUpdateView);
+            return View();
         }
 
         [HttpPost]

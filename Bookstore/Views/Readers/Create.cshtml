@@ -1,4 +1,4 @@
-﻿@model Bookstore.ViewModels.ReaderViewModel
+﻿@*@model Bookstore.ViewModels.ReaderViewModel
 
 @using Bookstore.Models
 
@@ -10,4 +10,14 @@
     <input type="submit" value="Submit" /> <br />
 }
 
-@Html.ActionLink("Reader list", "Index", "Readers") <br />
+@Html.ActionLink("Reader list", "Index", "Readers") <br />*@
+
+<div ng-controller="ReaderController as readerCtrl">
+    <form ng-submit="createReader()">
+        <input type="text" ng-model="createdReader.name"/>
+        <select ng-model="createdReader.genre">
+            <option ng-repeat="genre in genreList" ng-bind="genre" value="{{genre}}"></option>
+        </select>
+        <input type="submit" value="Create" class="btn btn-default" />
+    </form>
+</div>

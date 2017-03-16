@@ -12,15 +12,6 @@ namespace Bookstore.ViewModels
 
         public int isbn { get; set; }
 
-        public Country country { get; set; }
-
-        public Book book { get; set; }
-    }
-
-    public enum Country
-    {
-        LT,
-        LV,
-        EST
+        public string country { get; set; }
     }
 }

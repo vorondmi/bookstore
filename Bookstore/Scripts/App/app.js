@@ -1,5 +1,3 @@
-﻿var appModule = angular.module('app-module', ['authorModule']);
+﻿var app = angular.module('app', ['authorModule', 'isbnModule', 'bookModule', 'readerModule', 'complexViewModule']);
 
-appModule.controller('MainController', function () {
 
-});

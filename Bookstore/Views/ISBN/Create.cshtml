@@ -1,4 +1,4 @@
-﻿@model Bookstore.ViewModels.ISBNViewModel
+﻿@*@model Bookstore.ViewModels.ISBNViewModel
 
 @using Bookstore.Models
 
@@ -10,4 +10,14 @@
     <input type="submit" value="Submit" /> <br />
 }
 
-@Html.ActionLink("ISBN list", "Index", "ISBN") <br />
+@Html.ActionLink("ISBN list", "Index", "ISBN") <br />*@
+
+<div ng-controller="ISBNController as isbnCtrl">
+    <form ng-submit="createISBN()">
+        <input type="text" ng-model="createdISBN.isbn"/>
+        <select ng-model="createdISBN.country">
+            <option ng-repeat="option in countryList" value="{{option}}" ng-bind="option"></option>
+        </select>
+        <input type="submit" value="Create" class="btn btn-default"/>
+    </form>
+</div>

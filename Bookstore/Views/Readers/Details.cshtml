@@ -1,8 +1,17 @@
-﻿@model Bookstore.ViewModels.ReaderViewModel
+﻿@*@model Bookstore.ViewModels.ReaderViewModel
 
 @using Bookstore.Models;
 
 @Html.DisplayFor(m => m.name) <br />
 @Html.DisplayFor(m => m.genre) <br />
 
-@Html.ActionLink("Reader list", "Index", "Readers") <br />
+@Html.ActionLink("Reader list", "Index", "Readers") <br />*@
+
+<div ng-controller="ReaderController as readerCtrl" ng-init="initialiseDetails()">
+    <table border="1">
+        <tr ng-repeat="(key,val) in detailedReader">
+            <td ng-bind="key"></td>
+            <td ng-bind="val"></td>
+        </tr>
+    </table>
+</div>

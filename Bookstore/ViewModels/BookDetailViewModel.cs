@@ -2,16 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using Bookstore.Models;
 
 namespace Bookstore.ViewModels
 {
-    public class AuthorViewModel
+    public class BookDetailViewModel
     {
         public Guid id { get; set; }
 
-        public string authorName { get; set; }
+        public string bookTitle { get; set; }
 
-        public bool alive { get; set; }
+        public DateTime release { get; set; }
     }
 }

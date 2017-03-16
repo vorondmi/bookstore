@@ -14,7 +14,11 @@ namespace Bookstore.App_Start
         {
             Mapper.Initialize(cfg =>
             {
-                cfg.CreateMap<Book, BookViewModel>().ReverseMap();
+                cfg.CreateMap<Book, BookViewModel>()
+                    .ForMember(p => p.readers, opt => opt.Ignore())
+                    .ReverseMap();
+                cfg.CreateMap<NewBookViewModel, Book>();
+                cfg.CreateMap<Book, BookDetailViewModel>();
                 cfg.CreateMap<Book, ComplexBookViewModel>().ForMember(x => x.isbn, opt => opt.Ignore());
                 cfg.CreateMap<Author, ComplexBookViewModel>();
                 cfg.CreateMap<ISBN, ComplexBookViewModel>();

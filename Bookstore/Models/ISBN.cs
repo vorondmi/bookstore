@@ -13,18 +13,11 @@ namespace Bookstore.Models
         public Guid id { get; set; }
 
         [Required]
-        [Range(0, 20)]
+        [Range(0, 1000)]
         public int isbn { get; set; }
 
-        public Country country { get; set; }
+        public string country { get; set; }
 
         public virtual Book book { get; set; }
-    }
-
-    public enum Country
-    {
-        LT,
-        LV,
-        EST
     }
 }

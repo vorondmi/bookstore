@@ -15,17 +15,10 @@ namespace Bookstore.Models
         [Required]
         public string name { get; set; }
 
-        public Genre genre { get; set; }
+        public string genre { get; set; }
 
         public virtual List<Book> books { get; set; }
 
         public virtual List<Author> authors { get; set; }
-    }
-
-    public enum Genre
-    {
-        Drama,
-        Detective,
-        SciFi
     }
 }

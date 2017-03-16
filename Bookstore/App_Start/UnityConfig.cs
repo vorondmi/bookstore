@@ -1,13 +1,13 @@
 using System;
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.Configuration;
-using Bookstore.Models;
-using Bookstore.DAL;
-using Bookstore.BL;
+using Bookstore.Controllers;
 using Bookstore.Services;
+using Bookstore.BL;
+using Bookstore.DAL;
+using Bookstore.Models;
 using FluentValidation;
 using Bookstore.Services.Validation;
-using Bookstore.Controllers;
 
 namespace Bookstore.App_Start
 {
@@ -41,6 +41,10 @@ namespace Bookstore.App_Start
         {
             // NOTE: To load from web.config uncomment the line below. Make sure to add a Microsoft.Practices.Unity.Configuration to the using statements.
             // container.LoadConfiguration();
+
+            // TODO: Register your types here
+            // container.RegisterType<IProductRepository, ProductRepository>();
+
             container.RegisterType<IDbContext, BookStoreContext>(new ContainerControlledLifetimeManager());
 
             container.RegisterType<IISBNDal, ISBNDal>();
@@ -58,8 +62,6 @@ namespace Bookstore.App_Start
             container.RegisterType<IValidationService, ValidationService>();
 
             container.RegisterType<AuthorsApiController>();
-            // TODO: Register your types here
-            // container.RegisterType<IProductRepository, ProductRepository>();
         }
     }
 }

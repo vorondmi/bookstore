@@ -21,21 +21,12 @@ namespace Bookstore.Controllers
 
         public ActionResult Index()
         {
-            var itemList = readerBL.GetAllReaders();
-
-            var itemListView = new List<ReaderViewModel>();
-
-            foreach (var item in itemList)
-            {
-                itemListView.Add(Mapper.Map<ReaderViewModel>(item));
-            }
-
-            return View(itemListView);
+            return View();
         }
 
         public ActionResult Create()
         {
-            return View(new ReaderViewModel());
+            return View();
         }
 
         [HttpPost]
@@ -51,13 +42,9 @@ namespace Bookstore.Controllers
             return View(createdItemView);
         }
 
-        public ActionResult Details(Guid id)
+        public ActionResult Details()
         {
-            var itemToDetail = readerBL.FindReaderById(id);
-
-            var itemToDetailView = Mapper.Map<ReaderViewModel>(itemToDetail);
-
-            return View(itemToDetailView);
+            return View();
         }
 
         public ActionResult Update(Guid id)

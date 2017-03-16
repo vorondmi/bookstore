@@ -1,11 +1,9 @@
-﻿@model Bookstore.ViewModels.AuthorViewModel
-
-@using (Html.BeginForm())
-{ 
-    @Html.EditorFor(m => m.authorName) <br />
-    @Html.CheckBoxFor(m => m.alive, true) <br />
-
-    <input type="submit" value="Submit" /> <br />
-}
-
-@Html.ActionLink("Author list", "Index", "Authors") <br />
+﻿<div ng-controller="AuthorController as authorCtrl">
+    <form name="authorForm" ng-submit="createAuthor()">
+        <input ng-model="createdAuthor.authorName" type="text" /> <br />
+        <input ng-model="createdAuthor.alive" type="checkbox" /> <br />
+        <input type="submit" class="btn btn-success" value="Create"/> <br />
+    </form>
+    <p ng-bind="createdAuthor.authorName"></p>
+    <p ng-bind="createdAuthor.alive"></p>
+</div>

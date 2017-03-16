@@ -20,11 +20,17 @@
 </table>
 @Html.ActionLink("New author", "Create", "Authors") <br />*@
 
-<div ng-controller="AuthorController as authorCtrl">
-    <table border="1">
-        <tr ng-repeat="author in authors">
-            <td ng-bind="author"></td>
-        </tr>
-    </table>
+<div ng-controller="AuthorController as authorCtrl" ng-init="initialiseMainTable()">
+        <table border="1">
+            <tr ng-repeat="author in authors" class="row">
+                <td ng-bind="author.id" class="hidden-xs"></td>
+                <td class="col-xs-6" ng-bind="author.authorName"></td>
+                <td class="col-xs-6" ng-bind="author.alive"></td>
+                <td><input ng-click="redirectToDetails(author)" type="button" value="Details" class="btn btn-primary" /></td>
+                <td><input type="button" value="Update" class="btn btn-warning" /></td>
+                <td><input ng-click="deleteAuthor(author)" type="button" value="Delete" class="btn btn-danger" /></td>
+            </tr>
+        </table>
+    <input type="button" ng-click="redirectToCreate()" class="btn btn-default" value="New author"/>
 </div>
 

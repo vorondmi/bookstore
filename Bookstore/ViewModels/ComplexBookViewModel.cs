@@ -24,6 +24,6 @@ namespace Bookstore.ViewModels
         public string authorName { get; set; }
 
         [Display(Name = "Readers")]
-        public List<Reader> readers { get; set; }
+        public List<ReaderViewModel> readers { get; set; }
     }
 }

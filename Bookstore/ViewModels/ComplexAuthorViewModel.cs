@@ -12,6 +12,6 @@ namespace Bookstore.ViewModels
 
         public bool alive { get; set; }
 
-        public List<Book> books { get; set; }
+        public List<BookViewModel> books { get; set; }
     }
 }

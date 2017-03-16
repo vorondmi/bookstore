@@ -21,8 +21,6 @@ namespace Bookstore.Models
 
         public DateTime release { get; set; }
 
-        public Guid isbnID { get; set; }
-
         public virtual ISBN isbn { get; set; }
 
         public virtual List<Reader> readers { get; set; }

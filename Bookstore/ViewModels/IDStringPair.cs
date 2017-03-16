@@ -2,16 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using Bookstore.Models;
 
 namespace Bookstore.ViewModels
 {
-    public class ReaderViewModel
+    public class IDStringPair
     {
         public Guid id { get; set; }
 
         public string name { get; set; }
 
-        public string genre { get; set; }
+        public IDStringPair(Guid _id, string _name)
+        {
+            id = _id;
+            name = _name;
+        }
     }
 }

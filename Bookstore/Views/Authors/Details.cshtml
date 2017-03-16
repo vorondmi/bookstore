@@ -1,6 +1,15 @@
-﻿@model Bookstore.ViewModels.AuthorViewModel
+﻿@*@model Bookstore.ViewModels.AuthorViewModel
 
 @Html.DisplayFor(m => m.authorName) <br />
 @Html.DisplayFor(m => m.alive) <br />
 
-@Html.ActionLink("Author list", "Index", "Authors") <br />
+@Html.ActionLink("Author list", "Index", "Authors") <br />*@
+
+<div ng-controller="AuthorController as authorCtrl" ng-init="initialiseDetails()">
+    <table border="1">
+        <tr ng-repeat="(key,val) in detailedAuthor">
+            <td ng-bind="key"></td>
+            <td ng-bind="val"></td>
+        </tr>
+    </table>
+</div>

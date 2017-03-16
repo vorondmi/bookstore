@@ -22,21 +22,12 @@ namespace Bookstore.Controllers
 
         public ActionResult Index()
         {
-            var itemList = isbnBL.GetAllISBNs();
-
-            var itemListView = new List<ISBNViewModel>();
-
-            foreach (var item in itemList)
-            {
-                itemListView.Add(Mapper.Map<ISBNViewModel>(item));
-            }
-
-            return View(itemListView);
+            return View();
         }
 
         public ActionResult Create()
         {
-            return View(new ISBNViewModel());
+            return View();
         }
 
         [HttpPost]
@@ -52,13 +43,9 @@ namespace Bookstore.Controllers
             return View(createdItemView);
         }
 
-        public ActionResult Details(Guid id)
+        public ActionResult Details()
         {
-            var itemToDetail = isbnBL.FindISBNById(id);
-
-            var itemToDetailView = Mapper.Map<ISBNViewModel>(itemToDetail);
-
-            return View(itemToDetailView);
+            return View();
         }
 
         public ActionResult Update(Guid id)

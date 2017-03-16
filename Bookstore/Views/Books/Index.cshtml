@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Bookstore.ViewModels.BookViewModel>
+﻿@*@model IEnumerable<Bookstore.ViewModels.BookViewModel>
 
 @using Bookstore.Models
 
@@ -18,6 +18,19 @@
         </tr>
     }
 </table>
-@Html.ActionLink("New book", "Create", "Books") <br />
+@Html.ActionLink("New book", "Create", "Books") <br />*@
+
+<div ng-controller="BookController as bookCtrl" ng-init="initialiseMainTable()">
+    <table border="1">
+        <tr ng-repeat="book in bookList">
+            <td ng-bind="book.bookTitle"></td>
+            <td ng-bind="book.release"></td>
+            <td><input type="button" value="Details" class="btn btn-primary" ng-click="redirectToDetails(book)"/></td>
+            <td><input type="button" value="Update" class="btn btn-warning" /></td>
+            <td><input type="button" value="Delete" class="btn btn-danger" ng-click="deleteBook(book)"/></td>
+        </tr>
+    </table>
+    <input type="button" ng-click="redirectToCreate()" class="btn btn-default" value="New book"/>
+</div>
 
 

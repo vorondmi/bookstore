@@ -1,11 +1,12 @@
 ﻿using AutoMapper;
 using Bookstore.BL;
+using Bookstore.DAL;
+using Bookstore.Models;
+using Bookstore.Services.Validation;
 using Bookstore.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace Bookstore.Controllers
@@ -19,40 +20,38 @@ namespace Bookstore.Controllers
             authorBL = _authorBL;
         }
 
-        // GET api/<controller>
-        //public IEnumerable<AuthorViewModel> GetAll()
-        //{
-        //    var itemList = authorBL.GetAllAuthors();
-
-        //    var itemListView = Mapper.Map<List<AuthorViewModel>>(itemList);
-
-        //    return itemListView.AsEnumerable<AuthorViewModel>();
-        //}
-
-        public IEnumerable<string> GetAll()
+        [HttpGet]
+        public IEnumerable<AuthorViewModel> GetAll()
         {
-            return new string[] { "aaa", "bbb" };
+            var itemList = authorBL.GetAllAuthors();
+
+            var itemViewModelList = Mapper.Map<List<AuthorViewModel>>(itemList);
+
+            return itemViewModelList;
         }
 
         // GET api/<controller>/5
-        public string GetById(int id)
+        public AuthorViewModel GetAuthorDetailsById(Guid id)
         {
-            return "value";
+            var item = authorBL.FindAuthorByKey(id);
+
+            var itemViewModel = Mapper.Map<AuthorViewModel>(item);
+
+            return itemViewModel;
         }
 
-        // POST api/<controller>
-        public void Post([FromBody]string value)
+        [HttpPost]
+        public void Create([FromBody]AuthorViewModel itemViewModel)
         {
+            var item = Mapper.Map<Author>(itemViewModel);
+
+            authorBL.CreateAuthor(item);
         }
 
-        // PUT api/<controller>/5
-        public void Put(int id, [FromBody]string value)
+        [HttpPost]
+        public void Delete([FromBody]AuthorViewModel itemViewModel)
         {
-        }
-
-        // DELETE api/<controller>/5
-        public void Delete(int id)
-        {
+            authorBL.DeleteAuthorById(itemViewModel.id);
         }
     }
 }

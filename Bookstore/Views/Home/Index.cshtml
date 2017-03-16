@@ -1,6 +1,37 @@
-﻿@Html.ActionLink("Books", "Index", "Books") <br />
-@Html.ActionLink("Authors", "Index", "Authors") <br />
-@Html.ActionLink("Readers", "Index", "Readers") <br />
-@Html.ActionLink("ISBN", "Index", "ISBN") <br />
-@Html.ActionLink("Book info", "BookInfo") <br />
-@Html.ActionLink("Author info", "AuthorInfo") <br />
+﻿<div ng-controller="ComplexViewController as complexCtrl" ng-init="initialise()">
+    <div>
+        <table border="1">
+            <tr ng-repeat="complexAuthor in authorTable">
+                <td ng-bind="complexAuthor.authorName"></td>
+                <td ng-bind="complexAuthor.alive"></td>
+                <td>
+                    <table>
+                        <tr ng-repeat="authorBook in complexAuthor.books">
+                            <td ng-bind="authorBook.bookTitle"></td>
+                            <td>-</td>
+                            <td ng-bind="authorBook.release"></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <hr />
+    <div>
+        <table border="1">
+            <tr ng-repeat="complexBook in bookTable">
+                <td ng-bind="complexBook.isbn"></td>
+                <td ng-bind="complexBook.bookTitle"></td>
+                <td ng-bind="complexBook.authorName"></td>
+                <td ng-bind="complexBook.release"></td>
+                <td>
+                    <table border="1">
+                        <tr ng-repeat="bookReader in complexBook.readers">
+                            <td><a href ng-bind="bookReader.name" ng-click="redirectToReaderDetails(bookReader)"></a></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

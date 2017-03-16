@@ -15,14 +15,10 @@ namespace Bookstore.ViewModels
 
         public DateTime release { get; set; }
 
-        public Guid authorID { get; set; }
+        public IEnumerable<IDStringPair> authors { get; set;}
 
-        public IEnumerable<Author> authors { get; set; }
+        public IEnumerable<IDStringPair> isbns { get; set; }
 
-        public Guid isbnID { get; set; }
-
-        public IEnumerable<ISBN> isbns { get; set; }
-
-        public List<CheckBoxModel> readerCheckBoxes { get; set; }
+        public IEnumerable<IDStringPair> readers { get; set; }
     }
 }
