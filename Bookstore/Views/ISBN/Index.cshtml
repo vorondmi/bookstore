@@ -20,15 +20,36 @@
 </table>
 @Html.ActionLink("New isbn", "Create", "ISBN") <br />*@
 
+<script type="text/ng-template" id="deleteISBNModal.html">
+    <div>
+        <label></label> <br />
+        <input ng-click="deleteISBN()" type="button" class="btn btn-primary" value="Delete" />
+        <input ng-click="cancel()" type="button" class="btn btn-default" value="Cancel" />
+    </div>
+</script>
+
+<script type="text/ng-template" id="updateISBNModal.html">
+    <div>
+        <form>
+            <input type="text" ng-model="modalISBN.isbn" />
+            <select ng-model="modalISBN.country">
+                <option ng-repeat="option in countryList" value="{{option}}" ng-bind="option"></option>
+            </select>
+        </form>
+        <input type="button" ng-click="updateISBN()" class="btn btn-default" value="Save" />
+        <input type="button" ng-click="cancel()" class="btn btn-default" value="Cancel" />
+    </div>
+</script>
+
 <div ng-controller="ISBNController as isbnCtrl" ng-init="initialiseMainTable()">
     <table border="1">
         <tr ng-repeat="isbnItem in isbnList">
             <td ng-bind="isbnItem.isbn"></td>
             <td ng-bind="isbnItem.country"></td>
             <td><input ng-click="redirectToDetails(isbnItem)" type="button" value="Details" class="btn btn-primary"/></td>
-            <td><input type="button" value="Update" class="btn btn-warning" /></td>
-            <td><input ng-click="deleteISBN(isbnItem)" type="button" value="Delete" class="btn btn-danger" /></td>
+            <td><input ng-click="updateISBNModal(isbnItem)" type="button" value="Update" class="btn btn-warning" /></td>
+            <td><input ng-click="deleteISBNModal(isbnItem)" type="button" value="Delete" class="btn btn-danger" /></td>
         </tr>
     </table>
-    <input type="button" value="New ISBN" class="btn btn-default"/>
+    <input ng-click="redirectToCreate()" type="button" value="New ISBN" class="btn btn-default"/>
 </div>

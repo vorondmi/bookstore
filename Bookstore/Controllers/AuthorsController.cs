@@ -35,12 +35,13 @@ namespace Bookstore.Controllers
             return View();
         }
 
-        public ActionResult Update(Guid id)
+        public ActionResult Update()
         {
-            var itemToUpdate = authorBL.FindAuthorByKey(id);
+            //var itemToUpdate = authorBL.FindAuthorByKey(id);
 
-            var itemToUpdateView = Mapper.Map<AuthorViewModel>(itemToUpdate);
-            return View(itemToUpdateView);
+            //var itemToUpdateView = Mapper.Map<AuthorViewModel>(itemToUpdate);
+            //return View(itemToUpdateView);
+            return View();
         }
 
         [HttpPost]

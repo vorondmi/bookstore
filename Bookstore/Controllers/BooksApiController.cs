@@ -48,7 +48,7 @@ namespace Bookstore.Controllers
         public void Create([FromBody]NewBookViewModel itemViewModel)
         {
             var item = Mapper.Map<Book>(itemViewModel);
-            item.release = DateTime.Now;
+            //item.release = DateTime.Now;
 
             bookBL.CreateBook(item, itemViewModel.authorID, itemViewModel.isbnID, itemViewModel.readerIDs.ToList());
         }

@@ -9,7 +9,7 @@
                         <tr ng-repeat="authorBook in complexAuthor.books">
                             <td ng-bind="authorBook.bookTitle"></td>
                             <td>-</td>
-                            <td ng-bind="authorBook.release"></td>
+                            <td ng-bind="authorBook.release | date"></td>
                         </tr>
                     </table>
                 </td>
@@ -23,7 +23,7 @@
                 <td ng-bind="complexBook.isbn"></td>
                 <td ng-bind="complexBook.bookTitle"></td>
                 <td ng-bind="complexBook.authorName"></td>
-                <td ng-bind="complexBook.release"></td>
+                <td ng-bind="complexBook.release | date"></td>
                 <td>
                     <table border="1">
                         <tr ng-repeat="bookReader in complexBook.readers">

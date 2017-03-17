@@ -49,6 +49,14 @@ namespace Bookstore.Controllers
         }
 
         [HttpPost]
+        public void Update([FromBody]AuthorViewModel itemViewModel)
+        {
+            var item = Mapper.Map<Author>(itemViewModel);
+
+            authorBL.UpdateAuthor(item);
+        }
+
+        [HttpPost]
         public void Delete([FromBody]AuthorViewModel itemViewModel)
         {
             authorBL.DeleteAuthorById(itemViewModel.id);

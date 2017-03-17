@@ -40,6 +40,9 @@
         <div ng-repeat="reader in readerList">
             <label ng-bind="reader.name"></label><input type="checkbox" ng-model="reader.isReader"/><br />
         </div>
+        <div style="display:inline-block; min-height:290px;">
+            <div uib-datepicker ng-model="createdBook.release" class="well well-sm" datepicker-options="options"></div>
+        </div>
         <input type="submit" value="Create" class="btn btn-default" />
     </form>
 </div>

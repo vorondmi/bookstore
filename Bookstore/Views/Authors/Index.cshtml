@@ -20,17 +20,36 @@
 </table>
 @Html.ActionLink("New author", "Create", "Authors") <br />*@
 
+<script type="text/ng-template" id="deleteAuthorModal.html">
+    <div>
+        <label></label> <br />
+        <input ng-click="deleteAuthor()" type="button" class="btn btn-primary" value="Delete"/>
+        <input ng-click="cancel()" type="button" class="btn btn-default" value="Cancel"/>
+    </div>
+</script>
+
+<script type="text/ng-template" id="updateAuthorModal.html">
+    <div>
+        <form>
+            <input ng-model="modalAuthor.authorName" type="text" /> <br />
+            <input ng-model="modalAuthor.alive" type="checkbox" /> <br />
+        </form>
+        <input type="button" ng-click="updateAuthor()" class="btn btn-default" value="Save" />
+        <input type="button" ng-click="cancel()" class="btn btn-default" value="Cancel" />
+    </div>         
+</script>
+
 <div ng-controller="AuthorController as authorCtrl" ng-init="initialiseMainTable()">
         <table border="1">
             <tr ng-repeat="author in authors" class="row">
-                <td ng-bind="author.id" class="hidden-xs"></td>
-                <td class="col-xs-6" ng-bind="author.authorName"></td>
-                <td class="col-xs-6" ng-bind="author.alive"></td>
-                <td><input ng-click="redirectToDetails(author)" type="button" value="Details" class="btn btn-primary" /></td>
-                <td><input type="button" value="Update" class="btn btn-warning" /></td>
-                <td><input ng-click="deleteAuthor(author)" type="button" value="Delete" class="btn btn-danger" /></td>
+                <td class="hidden-xs col-md-3" ng-bind="author.id"></td>
+                <td class="col-xs-6 col-md-3" ng-bind="author.authorName"></td>
+                <td class="col-xs-6 col-md-3" ng-bind="author.alive"></td>
+                <td class="hidden-xs col-md-1"><input ng-click="redirectToDetails(author)" type="button" value="Details" class="btn btn-primary" /></td>
+                <td class="hidden-xs col-md-1"><input ng-click="updateAuthorModal(author)" type="button" value="Update" class="btn btn-warning" /></td>
+                <td class="hidden-xs col-md-1"><input ng-click="deleteAuthorModal(author)" type="button" value="Delete" class="btn btn-danger" /></td>
             </tr>
         </table>
-    <input type="button" ng-click="redirectToCreate()" class="btn btn-default" value="New author"/>
+    <input ng-click="redirectToCreate()" type="button" class="btn btn-default" value="New author"/>
 </div>
 

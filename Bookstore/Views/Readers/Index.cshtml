@@ -20,17 +20,38 @@
 </table>
 @Html.ActionLink("New Reader", "Create", "Readers") <br />*@
 
+<script type="text/ng-template" id="deleteReaderModal.html">
+    <div>
+        <label></label> <br />
+        <input ng-click="deleteReader()" type="button" class="btn btn-primary" value="Delete" />
+        <input ng-click="cancel()" type="button" class="btn btn-default" value="Cancel" />
+    </div>
+</script>
+
+<script type="text/ng-template" id="updateReaderModal.html">
+    <div>
+        <form>
+            <input type="text" ng-model="modalReader.name" />
+            <select ng-model="modalReader.genre">
+                <option ng-repeat="genre in genreList" ng-bind="genre" value="{{genre}}"></option>
+            </select>
+        </form>
+        <input type="button" ng-click="updateReader()" class="btn btn-default" value="Save" />
+        <input type="button" ng-click="cancel()" class="btn btn-default" value="Cancel" />
+    </div>
+</script>
+
 <div ng-controller="ReaderController as readerCtrl" ng-init="initialiseMainTable()">
     <table border="1">
         <tr ng-repeat="reader in readerList">
             <td ng-bind="reader.name"></td>
             <td ng-bind="reader.genre"></td>
             <td><input ng-click="redirectToDetails(reader)" type="button" value="Details" class="btn btn-primary" /></td>
-            <td><input type="button" value="Update" class="btn btn-warning" /></td>
-            <td><input ng-click="deleteReader(reader)" type="button" value="Delete" class="btn btn-danger" /></td>
+            <td><input ng-click="updateReaderModal(reader)" type="button" value="Update" class="btn btn-warning" /></td>
+            <td><input ng-click="deleteReaderModal(reader)" type="button" value="Delete" class="btn btn-danger" /></td>
         </tr>
     </table>
-    <input type="button" value="New reader" class="btn btn-default"/>
+    <input ng-click="redirectToCreate()" type="button" value="New reader" class="btn btn-default"/>
 </div>
 
 
