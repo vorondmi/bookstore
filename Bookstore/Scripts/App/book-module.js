@@ -1,6 +1,6 @@
 ﻿var bookModule = angular.module('bookModule', ['dataSaveModule']);
 
-bookModule.controller('BookController', ['$uibModal', '$http', '$scope', '$location', 'dataSaveService', function($uibModal, $http, $scope, $location, dataSaveService){
+bookModule.controller('BookController', ['$uibModal', '$http', '$scope', '$location', '$q', 'dataSaveService', function($uibModal, $http, $scope, $location, $q, dataSaveService){
 
     $scope.bookList = [];
     $scope.authorList = [];
@@ -22,14 +22,14 @@ bookModule.controller('BookController', ['$uibModal', '$http', '$scope', '$locat
     };
 
     $scope.getAuthorsReadersISBNs = function () {
-        $http.get('/api/booksapi/GetAuthorsReadersISBNs').then(function (response) {
-            $scope.authorList = response.data.authors;
-            $scope.isbnList = response.data.isbns;
-            $scope.readerList = response.data.readers;
+        return $http.get('/api/booksapi/GetAuthorsReadersISBNs').then(function (response) {
+            return {
+                authorList: response.data.authors,
+                isbnList: response.data.isbns,
+                readerList: response.data.readers,
+            }
         });
     };
-
-    let getAuthorReadersISBNs = new Promise($scope.getAuthorsReadersISBNs()).
 
     $scope.getBookList = function () {
         $http.get('/api/booksapi/getall').then(function (data) {
@@ -46,10 +46,12 @@ bookModule.controller('BookController', ['$uibModal', '$http', '$scope', '$locat
     };
 
     $scope.updateBookModal = function (item) {
-        $scope.getAuthorsReadersISBNs();
-        console.log($scope.authorList);
-        console.log($scope.isbnList);
-        console.log($scope.readerList);
+        $scope.getAuthorsReadersISBNs().then(function (response) {
+            $scope.authorList = response.authorList;
+            $scope.readerList = response.readerList;
+            $scope.isbnList = response.isbnList;
+        });
+        
         var updateModal = $uibModal.open({
             templateUrl: 'updateBookModal.html',
             controller: 'BookModalController',
@@ -102,23 +104,31 @@ bookModule.controller('BookController', ['$uibModal', '$http', '$scope', '$locat
 
     $scope.initialiseDetails = function () {
         $scope.getBookById(sessionStorage.getItem('bookToDetail'));
-    }
+    };
+
+    $scope.initialiseCreate = function () {
+        $scope.getAuthorsReadersISBNs().then(function (response) {
+            $scope.authorList = response.authorList;
+            $scope.readerList = response.readerList;
+            $scope.isbnList = response.isbnList;
+        });
+    };
 }]);
 
 bookModule.controller('BookModalController', ['$uibModalInstance', '$http', '$scope', 'book', 'mainScope', function ($uibModalInstance, $http, $scope, book, mainScope) {
     
     $scope.modalBook = {};
+    $scope.authorList = {};
+    $scope.readerList = {};
+    $scope.isbnList = {};
 
     angular.copy(book, $scope.modalBook);
 
-    $scope.authorList = mainScope.authorList;
-    $scope.isbnList = mainScope.isbnList;
-    $scope.readerList = mainScope.readerList;
-
-    console.log(mainScope);
-    console.log(mainScope.authorList);
-    console.log(mainScope.isbnList);
-    console.log(mainScope.readerList);
+    mainScope.getAuthorsReadersISBNs().then(function (response) {
+        $scope.authorList = response.authorList;
+        $scope.readerList = response.readerList;
+        $scope.isbnList = response.isbnList;
+    });
 
     $scope.attachReadersToBook = function () {
         $scope.readerList.forEach(function (reader) {
