@@ -46,7 +46,7 @@
         <tr ng-repeat="isbnItem in isbnList">
             <td ng-bind="isbnItem.isbn"></td>
             <td ng-bind="isbnItem.country"></td>
-            <td><input ng-click="redirectToDetails(isbnItem)" type="button" value="Details" class="btn btn-primary"/></td>
+            <td><a class="btn btn-primary" ng-href="/ISBN/Details/?{{isbnItem.id}}">Details</a></td>
             <td><input ng-click="updateISBNModal(isbnItem)" type="button" value="Update" class="btn btn-warning" /></td>
             <td><input ng-click="deleteISBNModal(isbnItem)" type="button" value="Delete" class="btn btn-danger" /></td>
         </tr>

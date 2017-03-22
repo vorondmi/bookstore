@@ -15,10 +15,10 @@ namespace Bookstore.ViewModels
 
         public DateTime release { get; set; }
 
-        public IEnumerable<IDStringPair> authors { get; set;}
+        public IEnumerable<ReaderViewModel> readers { get; set; }
 
-        public IEnumerable<IDStringPair> isbns { get; set; }
+        //public IEnumerable<IDStringPair> authors { get; set; }
 
-        public IEnumerable<IDStringPair> readers { get; set; }
+        //public IEnumerable<IDStringPair> isbns { get; set; }
     }
 }

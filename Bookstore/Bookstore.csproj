@@ -182,6 +182,10 @@
       <HintPath>..\packages\Unity.WebAPI.5.1\lib\net45\Unity.WebApi.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="WebActivator, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebActivator.1.0.0.0\lib\WebActivator.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
       <HintPath>..\packages\WebActivatorEx.2.0\lib\net40\WebActivatorEx.dll</HintPath>
       <Private>True</Private>
@@ -249,6 +253,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\UnityMvcActivator.cs" />
+    <Compile Include="App_Start\WebAPIConfig.cs" />
     <Compile Include="BL\AuthorBL.cs" />
     <Compile Include="BL\BookBL.cs" />
     <Compile Include="BL\IAuthorBL.cs" />
@@ -262,9 +267,9 @@
     <Compile Include="Controllers\ComplexTablesApiController.cs" />
     <Compile Include="Controllers\ISBNApiController.cs" />
     <Compile Include="Controllers\ReadersApiController.cs" />
-    <Compile Include="Migrations\201703151027451_InitialCreate.cs" />
-    <Compile Include="Migrations\201703151027451_InitialCreate.Designer.cs">
-      <DependentUpon>201703151027451_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201703201125075_initial.cs" />
+    <Compile Include="Migrations\201703201125075_initial.Designer.cs">
+      <DependentUpon>201703201125075_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Services\Validation\AuthorValidator.cs" />
@@ -341,10 +346,10 @@
     <Content Include="Scripts\angular.min.js.map" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\App\app.js" />
+    <Content Include="Scripts\App\data-provider.js" />
     <Content Include="Scripts\App\author-module.js" />
     <Content Include="Scripts\App\book-module.js" />
     <Content Include="Scripts\App\complex-view-module.js" />
-    <Content Include="Scripts\App\data-save-module.js" />
     <Content Include="Scripts\App\isbn-module.js" />
     <Content Include="Scripts\App\reader-module.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -404,8 +409,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201703151027451_InitialCreate.resx">
-      <DependentUpon>201703151027451_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201703201125075_initial.resx">
+      <DependentUpon>201703201125075_initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -1,6 +1,6 @@
-﻿var bookModule = angular.module('bookModule', ['dataSaveModule']);
+﻿var bookModule = angular.module('bookModule', ['ui.bootstrap']);
 
-bookModule.controller('BookController', ['$uibModal', '$http', '$scope', '$location', '$q', 'dataSaveService', function($uibModal, $http, $scope, $location, $q, dataSaveService){
+bookModule.controller('BookController', ['$uibModal', 'bookDataService', 'isbnDataService', 'readerDataService', 'authorDataService', '$scope', '$location', function ($uibModal, bookDataService, isbnDataService, readerDataService, authorDataService, $scope, $location) {
 
     $scope.bookList = [];
     $scope.authorList = [];
@@ -22,24 +22,37 @@ bookModule.controller('BookController', ['$uibModal', '$http', '$scope', '$locat
     };
 
     $scope.getAuthorsReadersISBNs = function () {
-        return $http.get('/api/booksapi/GetAuthorsReadersISBNs').then(function (response) {
-            return {
-                authorList: response.data.authors,
-                isbnList: response.data.isbns,
-                readerList: response.data.readers,
-            }
+        return authorDataService.getAuthorList().then(function (authorsResponse) {
+            return readerDataService.getReaderList().then(function (readersResponse) {
+                return isbnDataService.getISBNList().then(function (isbnResponse) {
+                    return {
+                        authorList: authorsResponse,
+                        readerList: readersResponse,
+                        isbnList: isbnResponse,
+                    }
+                });
+            });
         });
     };
 
     $scope.getBookList = function () {
-        $http.get('/api/booksapi/getall').then(function (data) {
-            $scope.bookList = data.data;
+        bookDataService.getBookList().then(function (response) {
+            $scope.bookList = response;
+        });
+    };
+
+    $scope.getBookById = function (id) {
+        bookDataService.getBookById(id).then(function (response) {
+            $scope.detailedBook = response;
+            delete $scope.detailedBook.readers;
         });
     };
 
     $scope.createBook = function () {
         $scope.attachReadersToBook();
-        $http.post('/api/booksapi/create', $scope.createdBook).then(function () {
+        console.log($scope.createdBook);
+        
+        bookDataService.createBook($scope.createdBook).then(function () {
             $scope.createdBook.readerIDs = [];
             window.location.href = '/Books/Index';
         });
@@ -77,15 +90,9 @@ bookModule.controller('BookController', ['$uibModal', '$http', '$scope', '$locat
                     return item;
                 },
                 mainScope: function () {
-                    return null;
+                    return $scope;
                 }
             }
-        });
-    };
-
-    $scope.getBookById = function (id) {
-        $http.get('/api/booksapi/GetBookDetailsById/' + id).then(function (response) {
-            $scope.detailedBook = response.data;
         });
     };
 
@@ -94,7 +101,6 @@ bookModule.controller('BookController', ['$uibModal', '$http', '$scope', '$locat
     };
 
     $scope.redirectToDetails = function (book) {
-        sessionStorage.setItem('bookToDetail', book.id);
         window.location.href = '/Books/Details';
     };
 
@@ -103,7 +109,7 @@ bookModule.controller('BookController', ['$uibModal', '$http', '$scope', '$locat
     };
 
     $scope.initialiseDetails = function () {
-        $scope.getBookById(sessionStorage.getItem('bookToDetail'));
+        $scope.getBookById(window.location.search.substring(1));
     };
 
     $scope.initialiseCreate = function () {
@@ -115,7 +121,7 @@ bookModule.controller('BookController', ['$uibModal', '$http', '$scope', '$locat
     };
 }]);
 
-bookModule.controller('BookModalController', ['$uibModalInstance', '$http', '$scope', 'book', 'mainScope', function ($uibModalInstance, $http, $scope, book, mainScope) {
+bookModule.controller('BookModalController', ['$uibModalInstance', 'bookDataService', '$scope', 'book', 'mainScope', function ($uibModalInstance, bookDataService, $scope, book, mainScope) {
     
     $scope.modalBook = {};
     $scope.authorList = {};
@@ -123,6 +129,8 @@ bookModule.controller('BookModalController', ['$uibModalInstance', '$http', '$sc
     $scope.isbnList = {};
 
     angular.copy(book, $scope.modalBook);
+    console.log(book);
+    console.log($scope.modalBook);
 
     mainScope.getAuthorsReadersISBNs().then(function (response) {
         $scope.authorList = response.authorList;
@@ -146,13 +154,13 @@ bookModule.controller('BookModalController', ['$uibModalInstance', '$http', '$sc
 
     $scope.updateBook = function () {
         $scope.attachReadersToBook();
-        $http.post('/api/booksapi/update', $scope.modalBook).then(function () {
+        bookDataService.updateBook($scope.modalBook).then(function () {
             $scope.cancel();
         });
     };
 
     $scope.deleteBook = function () {
-        $http.post('/api/booksapi/delete', $scope.modalBook).then(function () {
+        bookDataService.deleteBook($scope.modalBook.id).then(function () {
             $scope.cancel();
         });
     };

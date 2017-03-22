@@ -3,7 +3,7 @@ namespace Bookstore.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialCreate : DbMigration
+    public partial class initial : DbMigration
     {
         public override void Up()
         {
@@ -24,7 +24,6 @@ namespace Bookstore.Migrations
                         id = c.Guid(nullable: false),
                         bookTitle = c.String(nullable: false),
                         release = c.DateTime(nullable: false),
-                        isbnID = c.Guid(nullable: false),
                         author_id = c.Guid(),
                     })
                 .PrimaryKey(t => t.id)
@@ -49,7 +48,7 @@ namespace Bookstore.Migrations
                     {
                         id = c.Guid(nullable: false),
                         name = c.String(nullable: false),
-                        genre = c.Int(nullable: false),
+                        genre = c.String(),
                     })
                 .PrimaryKey(t => t.id);
             

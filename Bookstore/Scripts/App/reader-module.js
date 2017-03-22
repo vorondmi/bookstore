@@ -1,6 +1,6 @@
-﻿var readerModule = angular.module('readerModule', []);
+﻿var readerModule = angular.module('readerModule', ['ui.bootstrap', 'dataProvider']);
 
-readerModule.controller('ReaderController', ['$uibModal', '$scope', '$http', function ($uibModal, $scope, $http) {
+readerModule.controller('ReaderController', ['$uibModal', '$scope', '$location', 'readerDataService', function ($uibModal, $scope, $location, readerDataService) {
     
     $scope.readerList = [];
     $scope.createdReader = {};
@@ -13,21 +13,23 @@ readerModule.controller('ReaderController', ['$uibModal', '$scope', '$http', fun
         'SciFi'
     ];
 
+    $scope.urlparams = window.location.search.substring(1);
+
     $scope.getReaderList = function(){
-        $http.get('/api/readersapi/getall').then(function(data){
-            $scope.readerList = data.data;
+        readerDataService.getReaderList().then(function(response){
+            $scope.readerList = response;
             console.log($scope.readerList);
         });
     };
 
     $scope.getReaderById = function (id) {
-        $http.get('/api/readersapi/GetReaderDetailsById/' + id).then(function (response) {
-            $scope.detailedReader = response.data;
+        readerDataService.getReaderById(id).then(function (response) {
+            $scope.detailedReader = response;
         });
     };
 
     $scope.createReader = function () {
-        $http.post('/api/readersapi/create', $scope.createdReader).then(function () {
+        readerDataService.createReader($scope.createdReader).then(function () {
             window.location.href = '/Readers/Index';
         });
     };
@@ -69,7 +71,6 @@ readerModule.controller('ReaderController', ['$uibModal', '$scope', '$http', fun
     };
 
     $scope.redirectToDetails = function (reader) {
-        sessionStorage.setItem('readerToDetail', reader.id);
         window.location.href = '/Readers/Details';
     };
 
@@ -78,11 +79,11 @@ readerModule.controller('ReaderController', ['$uibModal', '$scope', '$http', fun
     };
 
     $scope.initialiseDetails = function () {
-        $scope.getReaderById(sessionStorage.getItem('readerToDetail'));
+        $scope.getReaderById(window.location.search.substring(1));
     }
 }]);
 
-readerModule.controller('ReaderModalController', ['$uibModalInstance', '$scope', '$http', 'mainScope', 'reader', 'genreList', function ($uibModalInstance, $scope, $http, mainScope, reader, genreList) {
+readerModule.controller('ReaderModalController', ['$uibModalInstance', 'readerDataService', '$scope', 'mainScope', 'reader', 'genreList', function ($uibModalInstance, readerDataService, $scope, mainScope, reader, genreList) {
     $scope.modalReader = {};
     angular.copy(reader, $scope.modalReader);
     $scope.genreList = genreList;
@@ -94,13 +95,13 @@ readerModule.controller('ReaderModalController', ['$uibModalInstance', '$scope',
     };
 
     $scope.deleteReader = function () {
-        $http.post('/api/readersapi/delete', $scope.modalReader).then(function () {
+        readerDataService.deleteReader($scope.modalReader.id).then(function () {
             $scope.cancel();
         });
     };
 
     $scope.updateReader = function () {
-        $http.post('/api/readersapi/update', $scope.modalReader).then(function () {
+        readerDataService.updateReader($scope.modalReader).then(function () {
             $scope.cancel();
         });
     };

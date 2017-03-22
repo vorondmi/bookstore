@@ -45,7 +45,7 @@
                 <td class="hidden-xs col-md-3" ng-bind="author.id"></td>
                 <td class="col-xs-6 col-md-3" ng-bind="author.authorName"></td>
                 <td class="col-xs-6 col-md-3" ng-bind="author.alive"></td>
-                <td class="hidden-xs col-md-1"><input ng-click="redirectToDetails(author)" type="button" value="Details" class="btn btn-primary" /></td>
+                <td><a class="btn btn-primary" ng-href="/Authors/Details/?{{author.id}}">Details</a></td>
                 <td class="hidden-xs col-md-1"><input ng-click="updateAuthorModal(author)" type="button" value="Update" class="btn btn-warning" /></td>
                 <td class="hidden-xs col-md-1"><input ng-click="deleteAuthorModal(author)" type="button" value="Delete" class="btn btn-danger" /></td>
             </tr>

@@ -55,7 +55,7 @@
         <tr ng-repeat="book in bookList">
             <td ng-bind="book.bookTitle"></td>
             <td ng-bind="book.release | date"></td>
-            <td><input type="button" value="Details" class="btn btn-primary" ng-click="redirectToDetails(book)"/></td>
+            <td><a class="btn btn-primary" ng-href="/Books/Details/?{{book.id}}">Details</a></td>
             <td><input type="button" value="Update" class="btn btn-warning" ng-click="updateBookModal(book)"/></td>
             <td><input type="button" value="Delete" class="btn btn-danger" ng-click="deleteBookModal(book)"/></td>
         </tr>

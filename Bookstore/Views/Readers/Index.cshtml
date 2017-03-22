@@ -46,7 +46,7 @@
         <tr ng-repeat="reader in readerList">
             <td ng-bind="reader.name"></td>
             <td ng-bind="reader.genre"></td>
-            <td><input ng-click="redirectToDetails(reader)" type="button" value="Details" class="btn btn-primary" /></td>
+            <td><a class="btn btn-primary" ng-href="/Readers/Details/?{{reader.id}}">Details</a></td>
             <td><input ng-click="updateReaderModal(reader)" type="button" value="Update" class="btn btn-warning" /></td>
             <td><input ng-click="deleteReaderModal(reader)" type="button" value="Delete" class="btn btn-danger" /></td>
         </tr>

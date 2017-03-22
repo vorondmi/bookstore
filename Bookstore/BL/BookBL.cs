@@ -61,7 +61,9 @@ namespace Bookstore.BL
 
         public List<Book> GetAllBooks()
         {
-            return bookDal.GetAllBooks();
+            var bookList = bookDal.GetAllBooks();
+
+            return bookList;
         }
 
         public Book FindBookById(Guid key)

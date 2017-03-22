@@ -20,7 +20,8 @@ namespace Bookstore.Controllers
             isbnBL = _isbnBL;
         }
 
-        public IEnumerable<ISBNViewModel> GetAll()
+        [HttpGet]
+        public IEnumerable<ISBNViewModel> GetAllISBNs()
         {
             var itemList = isbnBL.GetAllISBNs();
 
@@ -29,6 +30,7 @@ namespace Bookstore.Controllers
             return itemViewModelList;
         }
 
+        [HttpGet]
         public ISBNViewModel GetISBNDetailsById(Guid id)
         {
             var item = isbnBL.FindISBNById(id);
@@ -38,7 +40,7 @@ namespace Bookstore.Controllers
             return itemViewModel;
         }
 
-        [HttpPost]
+        [HttpPut]
         public void Create(ISBNViewModel isbnViewModel)
         {
             var item = Mapper.Map<ISBN>(isbnViewModel);
@@ -54,10 +56,10 @@ namespace Bookstore.Controllers
             isbnBL.UpdateISBN(item);
         }
 
-        [HttpPost]
-        public void Delete(ISBNViewModel itemViewModel)
+        [HttpDelete]
+        public void Delete(Guid id)
         {
-            isbnBL.DeleteISBNById(itemViewModel.id);
+            isbnBL.DeleteISBNById(id);
         }
     }
 }

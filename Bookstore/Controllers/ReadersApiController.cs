@@ -11,6 +11,7 @@ using Bookstore.Models;
 
 namespace Bookstore.Controllers
 {
+    [Route(Name = "ReaderController")]
     public class ReadersApiController : ApiController
     {
         readonly IReaderBL readerBL;
@@ -20,7 +21,8 @@ namespace Bookstore.Controllers
             readerBL = _readerBL;
         }
 
-        public IEnumerable<ReaderViewModel> GetAll()
+        [HttpGet]
+        public IEnumerable<ReaderViewModel> GetAllReaders()
         {
             var itemList = readerBL.GetAllReaders();
 
@@ -29,6 +31,7 @@ namespace Bookstore.Controllers
             return itemViewModelList;
         }
 
+        [HttpGet]
         public ReaderViewModel GetReaderDetailsById(Guid id)
         {
             var item = readerBL.FindReaderById(id);
@@ -38,7 +41,7 @@ namespace Bookstore.Controllers
             return itemViewModel;
         }
 
-        [HttpPost]
+        [HttpPut]
         public void Create(ReaderViewModel itemViewModel)
         {
             var item = Mapper.Map<Reader>(itemViewModel);
@@ -54,10 +57,10 @@ namespace Bookstore.Controllers
             readerBL.UpdateReader(item);
         }
 
-        [HttpPost]
-        public void Delete(ReaderViewModel itemViewModel)
+        [HttpDelete]
+        public void Delete(Guid id)
         {
-            readerBL.DeleteReaderById(itemViewModel.id);
+            readerBL.DeleteReaderById(id);
         }
     }
 }

@@ -1,6 +1,6 @@
-﻿var authorModule = angular.module('authorModule', ['ui.bootstrap']);
+﻿var authorModule = angular.module('authorModule', ['ui.bootstrap', 'dataProvider']);
 
-authorModule.controller('AuthorController', ['$scope', '$http', '$location', '$uibModal', function ($scope, $http, $location, $uibModal) {
+authorModule.controller('AuthorController', ['$scope', '$location', '$uibModal', 'authorDataService', function ($scope, $location, $uibModal, authorDataService) {
 
     $scope.authors = [];
     $scope.detailedAuthor = {};
@@ -10,23 +10,22 @@ authorModule.controller('AuthorController', ['$scope', '$http', '$location', '$u
     };
 
     $scope.getAuthorList = function () {
-        $http.get("/api/authorsapi/getall").then(function (response) {
-            $scope.authors = response.data;
+        authorDataService.getAuthorList().then(function (response) {
+            $scope.authors = response;
         });
     }
 
     $scope.getAuthorById = function (id) {
-        $http.get('/api/authorsapi/GetAuthorDetailsById/' + id).then(function (response) {
-            $scope.detailedAuthor = response.data;
+        authorDataService.getAuthorById(id).then(function (response) {
+            $scope.detailedAuthor = response;
         });
     };
 
     $scope.createAuthor = function () {
-        $http.post("/api/authorsapi/create", $scope.createdAuthor).then(function () {
-
+        authorDataService.createAuthor($scope.createdAuthor).then(function () {
+            $scope.createdAuthor = {};
+            window.location.href = '/Authors/Index';
         });
-
-        window.location.href = '/Authors/Index';
     }
 
     $scope.deleteAuthorModal = function (item) {
@@ -67,7 +66,6 @@ authorModule.controller('AuthorController', ['$scope', '$http', '$location', '$u
     };
 
     $scope.redirectToDetails = function (author) {
-        sessionStorage.setItem('authorToDetail', author.id);
         window.location.href = '/Authors/Details';
     };
 
@@ -76,11 +74,11 @@ authorModule.controller('AuthorController', ['$scope', '$http', '$location', '$u
     };
 
     $scope.initialiseDetails = function () {
-        $scope.getAuthorById(sessionStorage.getItem('authorToDetail'));
+        $scope.getAuthorById(window.location.search.substring(1));
     }
 }]);
 
-authorModule.controller('authorModalController', ['$uibModalInstance', '$http', '$scope', 'mainScope', 'author', function ($uibModalInstance, $http, $scope, mainScope, author) {
+authorModule.controller('authorModalController', ['$uibModalInstance', '$scope', 'mainScope', 'author', 'authorDataService', function ($uibModalInstance, $scope, mainScope, author, authorDataService) {
     $scope.modalAuthor = {};
     angular.copy(author, $scope.modalAuthor);
 
@@ -91,13 +89,13 @@ authorModule.controller('authorModalController', ['$uibModalInstance', '$http', 
     };
 
     $scope.updateAuthor = function () {
-        $http.post('/api/authorsapi/update', $scope.modalAuthor).then(function () {
+        authorDataService.updateAuthor($scope.modalAuthor).then(function () {
             $scope.cancel();
         });
     };
 
     $scope.deleteAuthor = function () {
-        $http.post("/api/authorsapi/delete", $scope.modalAuthor).then(function () {
+        authorDataService.deleteAuthor($scope.modalAuthor.id).then(function () {
             $scope.cancel();
         });
     };

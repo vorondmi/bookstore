@@ -13,12 +13,6 @@ namespace Bookstore.Controllers
 {
     public class AuthorsController : Controller
     {
-        readonly IAuthorBL authorBL;
-
-        public AuthorsController(IAuthorBL authorBL)
-        {
-            this.authorBL = authorBL;
-        }
 
         public ActionResult Index()
         {
@@ -42,26 +36,6 @@ namespace Bookstore.Controllers
             //var itemToUpdateView = Mapper.Map<AuthorViewModel>(itemToUpdate);
             //return View(itemToUpdateView);
             return View();
-        }
-
-        [HttpPost]
-        public ActionResult Update(Author updatedItemView)
-        {
-            var updatedItem = Mapper.Map<Author>(updatedItemView);
-
-            if (authorBL.UpdateAuthor(updatedItem) == 0)
-            {
-                return RedirectToAction("Index");
-            }
-
-            return View(updatedItemView);
-        }
-
-        public ActionResult Delete(Guid id)
-        {
-            authorBL.DeleteAuthorById(id);
-
-            return RedirectToAction("Index");
         }
     }
 }

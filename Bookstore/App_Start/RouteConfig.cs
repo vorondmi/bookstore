@@ -16,13 +16,16 @@ namespace Bookstore
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{action}/{id}",
-                defaults: new {id = UrlParameter.Optional}
+                name: "BookReaders",
+                routeTemplate: "api/{controller}/{id}/{parameter1}",
+                defaults: new { id = RouteParameter.Optional, readers = RouteParameter.Optional }
             );
 
-            //routes.MapHttpRoute("DefaultApiGet", "api/{controller}", new { action = "Get" }, new { httpMethod = new HttpMethodConstraint(HttpMethod.Get) });
-            //routes.MapHttpRoute("DefaultApiPost", "api/{controller}", new { action = "Post" }, new { httpMethod = new HttpMethodConstraint(HttpMethod.Post) });
+            routes.MapHttpRoute(
+                name: "DefaultApi",
+                routeTemplate: "api/{controller}/{id}",
+                defaults: new { id = RouteParameter.Optional }
+            );
 
             routes.MapRoute(
                 name: "Default",

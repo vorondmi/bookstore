@@ -1,6 +1,6 @@
-﻿var isbnModule = angular.module('isbnModule', []);
+﻿var isbnModule = angular.module('isbnModule', ['ui.bootstrap', 'dataProvider']);
 
-isbnModule.controller('ISBNController', ['$http', '$scope', '$uibModal', function ($http, $scope, $uibModal) {
+isbnModule.controller('ISBNController', ['$scope', '$uibModal', 'isbnDataService', function ($scope, $uibModal, isbnDataService) {
 
     $scope.isbnList = [];
     $scope.createdISBN = {};
@@ -14,20 +14,20 @@ isbnModule.controller('ISBNController', ['$http', '$scope', '$uibModal', functio
     ];
 
     $scope.getISBNList = function () {
-        $http.get('/api/isbnapi/getall').then(function (data) {
-            $scope.isbnList = data.data;
+        isbnDataService.getISBNList().then(function (response) {
+            $scope.isbnList = response;
             console.log($scope.isbnList);
         });
     };
 
     $scope.getISBNById = function (id) {
-        $http.get('/api/isbnapi/GetISBNDetailsById/' + id).then(function (response) {
-            $scope.detailedISBN = response.data;
+        isbnDataService.getISBNById(id).then(function (response) {
+            $scope.detailedISBN = response;
         });
     };
 
     $scope.createISBN = function () {
-        $http.post('/api/isbnapi/create', $scope.createdISBN).then(function () {
+        isbnDataService.createISBN($scope.createdISBN).then(function () {
             window.location.href = '/ISBN/Index';
         });
     };
@@ -76,7 +76,6 @@ isbnModule.controller('ISBNController', ['$http', '$scope', '$uibModal', functio
     };
 
     $scope.redirectToDetails = function (isbn) {
-        sessionStorage.setItem('isbnToDetail', isbn.id);
         window.location.href = '/ISBN/Details';
     };
 
@@ -85,11 +84,11 @@ isbnModule.controller('ISBNController', ['$http', '$scope', '$uibModal', functio
     };
 
     $scope.initialiseDetails = function () {
-        $scope.getISBNById(sessionStorage.getItem('isbnToDetail'));
+        $scope.getISBNById(window.location.search.substring(1));
     }
 }]);
 
-isbnModule.controller('isbnModalController', ['$uibModalInstance', '$scope', '$http', 'mainScope', 'isbn', 'countryList', function ($uibModalInstance, $scope, $http, mainScope, isbn, countryList) {
+isbnModule.controller('isbnModalController', ['$uibModalInstance', '$scope', 'mainScope', 'isbn', 'countryList', function ($uibModalInstance, $scope, mainScope, isbn, countryList) {
     $scope.modalISBN = {};
     angular.copy(isbn, $scope.modalISBN);
     $scope.countryList = countryList;
@@ -101,13 +100,13 @@ isbnModule.controller('isbnModalController', ['$uibModalInstance', '$scope', '$h
     };
 
     $scope.deleteISBN = function () {
-        $http.post('/api/isbnapi/delete', $scope.modalISBN).then(function () {
+        isbnDataService.deleteISBN($scope.modalISBN.id).then(function () {
             $scope.cancel();
         });
     };
 
     $scope.updateISBN = function () {
-        $http.post('/api/isbnapi/update', $scope.modalISBN).then(function () {
+        isbnDataService.updateISBN($scope.modalISBN).then(function () {
             $scope.cancel();
         });
     };

@@ -12,5 +12,7 @@ namespace Bookstore.ViewModels
         public string bookTitle { get; set; }
 
         public DateTime release { get; set; }
+
+        public IEnumerable<ReaderViewModel> readers { get; set; }
     }
 }

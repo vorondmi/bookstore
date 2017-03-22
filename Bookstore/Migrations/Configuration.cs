@@ -10,7 +10,6 @@ namespace Bookstore.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
-            ContextKey = "Bookstore.Models.BookStoreContext";
         }
 
         protected override void Seed(Bookstore.Models.BookStoreContext context)

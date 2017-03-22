@@ -11,6 +11,7 @@ using System.Web.Http;
 
 namespace Bookstore.Controllers
 {
+    //[RoutePrefix("author")]
     public class AuthorsApiController : ApiController
     {
         readonly IAuthorBL authorBL;
@@ -20,8 +21,9 @@ namespace Bookstore.Controllers
             authorBL = _authorBL;
         }
 
+        // GET: api/AuthorsApi
         [HttpGet]
-        public IEnumerable<AuthorViewModel> GetAll()
+        public IEnumerable<AuthorViewModel> GetAllAuthors()
         {
             var itemList = authorBL.GetAllAuthors();
 
@@ -30,7 +32,7 @@ namespace Bookstore.Controllers
             return itemViewModelList;
         }
 
-        // GET api/<controller>/5
+        [HttpGet]
         public AuthorViewModel GetAuthorDetailsById(Guid id)
         {
             var item = authorBL.FindAuthorByKey(id);
@@ -40,8 +42,8 @@ namespace Bookstore.Controllers
             return itemViewModel;
         }
 
-        [HttpPost]
-        public void Create([FromBody]AuthorViewModel itemViewModel)
+        [HttpPut]
+        public void CreateAuthor([FromBody]AuthorViewModel itemViewModel)
         {
             var item = Mapper.Map<Author>(itemViewModel);
 
@@ -49,17 +51,17 @@ namespace Bookstore.Controllers
         }
 
         [HttpPost]
-        public void Update([FromBody]AuthorViewModel itemViewModel)
+        public void UpdateAuthor([FromBody]AuthorViewModel itemViewModel)
         {
             var item = Mapper.Map<Author>(itemViewModel);
 
             authorBL.UpdateAuthor(item);
         }
 
-        [HttpPost]
-        public void Delete([FromBody]AuthorViewModel itemViewModel)
+        [HttpDelete]
+        public void DeleteAuthor(Guid id)
         {
-            authorBL.DeleteAuthorById(itemViewModel.id);
+            authorBL.DeleteAuthorById(id);
         }
     }
 }
