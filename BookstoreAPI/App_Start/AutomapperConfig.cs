@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using AutoMapper;
-using Bookstore.Models;
-using Bookstore.ViewModels;
+﻿using AutoMapper;
+using BookstoreAPI.BookStoreViewModels;
+using BookstoreModels;
 
-namespace Bookstore.App_Start
+namespace BookstoreAPI.App_Start
 {
     public class AutomapperConfig
     {

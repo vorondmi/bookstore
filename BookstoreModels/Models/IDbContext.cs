@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 
-namespace Bookstore.Models
+namespace BookstoreModels
 {
     public interface IDbContext
     {

@@ -1,15 +1,13 @@
 ﻿using AutoMapper;
-using Bookstore.BL;
-using Bookstore.DAL;
-using Bookstore.Models;
-using Bookstore.Services.Validation;
-using Bookstore.ViewModels;
+using BookstoreAPI.BookStoreViewModels;
+using BookstoreBL;
+using BookstoreModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 
-namespace Bookstore.Controllers
+namespace BookstoreAPI.Controllers
 {
     //[RoutePrefix("author")]
     public class AuthorsApiController : ApiController
@@ -23,7 +21,7 @@ namespace Bookstore.Controllers
 
         // GET: api/AuthorsApi
         [HttpGet]
-        [Route("api/authors/kkk/jjjj")]
+        //[Route("api/authors/kkk/jjjj")]
         public IEnumerable<AuthorViewModel> Get()
         {
             var itemList = authorBL.GetAllAuthors();

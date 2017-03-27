@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Bookstore.Models
+namespace BookstoreModels
 {
     public class Reader
     {

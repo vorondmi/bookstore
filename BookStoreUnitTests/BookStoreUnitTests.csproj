@@ -39,8 +39,8 @@
       <HintPath>..\packages\Castle.Core.4.0.0\lib\net45\Castle.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Moq, Version=4.7.1.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
-      <HintPath>..\packages\Moq.4.7.1\lib\net45\Moq.dll</HintPath>
+    <Reference Include="Moq, Version=4.7.8.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <HintPath>..\packages\Moq.4.7.8\lib\net45\Moq.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -60,16 +60,24 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="AuthorBLTest.cs" />
-    <Compile Include="AuthorsControllerTest.cs" />
+    <Compile Include="ReaderTests\ReaderBLTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BookstoreBL\BookstoreBL.csproj">
       <Project>{BDE63550-20EA-41F0-B962-D645E810475D}</Project>
       <Name>BookstoreBL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BookstoreDal\BookstoreDal.csproj">
+      <Project>{ed4eba5d-dcc4-4e57-9eb8-48c554a5b31a}</Project>
+      <Name>BookstoreDal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BookstoreModels\BookstoreModels.csproj">
+      <Project>{A12B5B88-9B16-4C59-BA78-4EA1A3A6867A}</Project>
+      <Name>BookstoreModels</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

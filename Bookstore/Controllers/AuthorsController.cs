@@ -1,22 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Bookstore.Models;
-using System.Data.Entity;
-using Bookstore.ViewModels;
-using AutoMapper;
-using Bookstore.BL;
+﻿using System.Web.Mvc;
 
 namespace Bookstore.Controllers
 {
     public class AuthorsController : Controller
     {
-
         public ActionResult Index()
         {
-            return View("Index");
+            return View();
         }
 
         public ActionResult Create()
@@ -26,15 +16,6 @@ namespace Bookstore.Controllers
 
         public ActionResult Details()
         {
-            return View();
-        }
-
-        public ActionResult Update()
-        {
-            //var itemToUpdate = authorBL.FindAuthorByKey(id);
-
-            //var itemToUpdateView = Mapper.Map<AuthorViewModel>(itemToUpdate);
-            //return View(itemToUpdateView);
             return View();
         }
     }

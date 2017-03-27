@@ -14,7 +14,7 @@ namespace Bookstore
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             //GlobalConfiguration.Configure(WebAPIConfig.Register);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            AutomapperConfig.init();
+            //AutomapperConfig.init();
         }
     }
 }

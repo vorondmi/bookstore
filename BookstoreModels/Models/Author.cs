@@ -5,7 +5,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
-namespace Bookstore.Models
+namespace BookstoreModels
 {
     public class Author
     {

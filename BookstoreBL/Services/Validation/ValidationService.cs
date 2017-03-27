@@ -1,21 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.ComponentModel.DataAnnotations;
-using Bookstore.Services;
+﻿using BookstoreBL.Services.Validation;
 
-namespace Bookstore.BL
+namespace BookstoreBL
 {
     public class ValidationService : IValidationService
     {
         public bool EntityIsValid(object entityToValidate)
         {
-            return Validator.TryValidateObject(
-                entityToValidate, 
-                new ValidationContext(entityToValidate, null, null), 
-                new List<ValidationResult>()
-                );
+            //todo
+            return true;
         }
     }
 }

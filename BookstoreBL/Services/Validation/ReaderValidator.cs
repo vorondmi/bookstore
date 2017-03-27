@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using FluentValidation;
-using Bookstore.Models;
+﻿using FluentValidation;
+using BookstoreModels;
 
-namespace Bookstore.Services.Validation
+namespace BookstoreBL.Services.Validation
 {
     public class ReaderValidator : AbstractValidator<Reader>
     {

@@ -1,13 +1,12 @@
-﻿using System;
+﻿using BookstoreBL.Services.Validation;
+using BookstoreDAL;
+using BookstoreModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using Bookstore.Models;
-using Bookstore.DAL;
-using System.ComponentModel.DataAnnotations;
-using Bookstore.Services;
 
-namespace Bookstore.BL
+namespace BookstoreBL
 {
     public class ISBNBL : IISBNBL
     {

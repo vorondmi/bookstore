@@ -1,18 +1,13 @@
-﻿using Bookstore.BL;
-using Bookstore.ViewModels;
+﻿using BookstoreAPI.BookStoreViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using AutoMapper;
-using Bookstore.Models;
-using System.Web;
-using System.Threading.Tasks;
-using System.Net.Http.Headers;
+using BookstoreBL;
+using BookstoreModels;
 
-namespace Bookstore.Controllers
+namespace BookstoreAPI.Controllers
 {
     [Route(Name = "BookController")]
     public class BooksApiController : ApiController
@@ -58,33 +53,7 @@ namespace Bookstore.Controllers
 
             var itemViewModel = Mapper.Map<BookDetailViewModel>(item);
 
-            //itemViewModel.readers = readerBL.GetAllReaders().Select(r => r.name).ToList();
-
             return itemViewModel;
-        }
-
-        [HttpGet]
-        public List<ReaderViewModel> GetBookInfo(Guid id, string parameter1)
-        {
-            //var readersUrl = this.Url.Link("DefaultApi", new { Controller = parameter1});
-
-            //HttpClient client = new HttpClient();
-            //HttpResponseMessage responseMsg = client.GetAsync(readersUrl).Result;
-
-            //var readerList = responseMsg.Content.ReadAsAsync<List<Reader>>().Result;
-            //var book = GetBookDetailsById(id);
-
-            //List<Reader> bookReaderList = readerList.Where(rl => book.readers.Any(br => br.Equals(rl.name))).ToList();
-
-            //return bookReaderList;
-
-            switch(parameter1.ToLower())
-            {
-                case "readers":
-                    return GetBookDetailsById(id).readers.ToList();
-                default:
-                    return null;
-            }
         }
 
         [HttpPut]
@@ -108,37 +77,5 @@ namespace Bookstore.Controllers
         {
             bookBL.DeleteBookById(id);
         }
-
-        //public BookViewModel GetAuthorsReadersISBNs()
-        //{
-        //    BookViewModel itemToReturn = new BookViewModel();
-
-        //    var authorList = authorBL.GetAllAuthors();
-        //    var isbnList = isbnBL.GetAllISBNs();
-        //    var readerList = readerBL.GetAllReaders();
-
-        //    List<IDStringPair> authorCompressedList = new List<IDStringPair>();
-        //    foreach(var author in authorList)
-        //    {
-        //        authorCompressedList.Add(new IDStringPair(author.id, author.authorName));
-        //    }
-        //    itemToReturn.authors = authorCompressedList;
-
-        //    List<IDStringPair> isbnCompressedList = new List<IDStringPair>();
-        //    foreach(var isbn in isbnList)
-        //    {
-        //        isbnCompressedList.Add(new IDStringPair(isbn.id, isbn.isbn.ToString()));
-        //    }
-        //    itemToReturn.isbns = isbnCompressedList;
-
-        //    List<IDStringPair> readerCompressedList = new List<IDStringPair>();
-        //    foreach(var reader in readerList)
-        //    {
-        //        readerCompressedList.Add(new IDStringPair(reader.id, reader.name));
-        //    }
-        //    itemToReturn.readers = readerCompressedList;
-
-        //    return itemToReturn;
-        //}
     }
 }

@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using Bookstore.Models;
-using System.Data.Entity;
+using BookstoreModels;
 
-namespace Bookstore.DAL
+namespace BookstoreDAL
 {
     public class ISBNDal : IISBNDal
     {

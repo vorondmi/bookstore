@@ -1,13 +1,6 @@
 using System;
 using Microsoft.Practices.Unity;
-using Microsoft.Practices.Unity.Configuration;
-using Bookstore.Controllers;
-using Bookstore.Services;
-using Bookstore.BL;
-using Bookstore.DAL;
-using Bookstore.Models;
 using FluentValidation;
-using Bookstore.Services.Validation;
 
 namespace Bookstore.App_Start
 {
@@ -45,23 +38,21 @@ namespace Bookstore.App_Start
             // TODO: Register your types here
             // container.RegisterType<IProductRepository, ProductRepository>();
 
-            container.RegisterType<IDbContext, BookStoreContext>(new ContainerControlledLifetimeManager());
+            //container.RegisterType<IDbContext, BookStoreContext>(new ContainerControlledLifetimeManager());
 
-            container.RegisterType<IISBNDal, ISBNDal>();
-            container.RegisterType<IAuthorDal, AuthorDal>();
-            container.RegisterType<IBookDal, BookDal>();
-            container.RegisterType<IReaderDal, ReaderDal>();
+            //container.RegisterType<IISBNDal, ISBNDal>();
+            //container.RegisterType<IAuthorDal, AuthorDal>();
+            //container.RegisterType<IBookDal, BookDal>();
+            //container.RegisterType<IReaderDal, ReaderDal>();
 
-            container.RegisterType<IISBNBL, ISBNBL>();
-            container.RegisterType<IAuthorBL, AuthorBL>();
-            container.RegisterType<IBookBL, BookBL>();
-            container.RegisterType<IReaderBL, ReaderBL>();
+            //container.RegisterType<IISBNBL, ISBNBL>();
+            //container.RegisterType<IAuthorBL, AuthorBL>();
+            //container.RegisterType<IBookBL, BookBL>();
+            //container.RegisterType<IReaderBL, ReaderBL>();
 
-            container.RegisterType<IValidator<Author>, AuthorValidator>();
+            //container.RegisterType<IValidator<Author>, AuthorValidator>();
 
-            container.RegisterType<IValidationService, ValidationService>();
-
-            container.RegisterType<AuthorsApiController>();
+            //container.RegisterType<IValidationService, ValidationService>();
         }
     }
 }

@@ -1,15 +1,12 @@
-﻿using Bookstore.BL;
-using Bookstore.ViewModels;
+﻿using BookstoreAPI.BookStoreViewModels;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using AutoMapper;
-using Bookstore.Models;
+using BookstoreBL;
+using BookstoreModels;
 
-namespace Bookstore.Controllers
+namespace BookstoreAPI.Controllers
 {
     public class ISBNApiController : ApiController
     {

@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using BookstoreAPI.App_Start;
 using System.Web.Http;
-using System.Web.Routing;
 
 namespace BookstoreAPI
 {
@@ -12,6 +8,7 @@ namespace BookstoreAPI
         protected void Application_Start()
         {
             GlobalConfiguration.Configure(WebApiConfig.Register);
+            AutomapperConfig.init();
         }
     }
 }

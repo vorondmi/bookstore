@@ -2,14 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using Bookstore.Models;
-using Bookstore.DAL;
-using Bookstore.Services;
-using Bookstore.Services.Validation;
 using FluentValidation;
 using FluentValidation.Results;
+using BookstoreModels;
+using BookstoreDAL;
 
-namespace Bookstore.BL
+namespace BookstoreBL
 {
     public class AuthorBL : IAuthorBL
     {

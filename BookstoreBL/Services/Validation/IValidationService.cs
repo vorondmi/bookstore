@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bookstore.Services
+namespace BookstoreBL.Services.Validation
 {
     public interface IValidationService
     {

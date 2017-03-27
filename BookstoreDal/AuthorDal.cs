@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Bookstore.Models;
+using BookstoreModels;
 
-namespace Bookstore.DAL
+namespace BookstoreDAL
 {
     public class AuthorDal : IAuthorDal
     {

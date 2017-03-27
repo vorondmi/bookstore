@@ -1,66 +1,62 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Bookstore.Models;
-using Bookstore.ViewModels;
-using AutoMapper;
-using Bookstore.BL;
+﻿using System.Web.Mvc;
 
 namespace Bookstore.Controllers
 {
-    
+
     public class HomeController : Controller
     {
-        readonly IAuthorBL authorBL;
-        readonly IBookBL bookBL;
-        readonly IISBNBL isbnBL;
-        readonly IReaderBL readerBL;
-
-        public HomeController(IAuthorBL _authorBL, IBookBL _bookBL, IISBNBL _isbnBL, IReaderBL _readerBL)
-        {
-            authorBL = _authorBL;
-            bookBL = _bookBL;
-            isbnBL = _isbnBL;
-            readerBL = _readerBL;
-        }
-
         public ActionResult Index()
         {
             return View();
         }
+        //readonly IAuthorBL authorBL;
+        //readonly IBookBL bookBL;
+        //readonly IISBNBL isbnBL;
+        //readonly IReaderBL readerBL;
 
-        public ActionResult BookInfo()
-        {
-            var books = bookBL.GetAllBooks();
+        //public HomeController(IAuthorBL _authorBL, IBookBL _bookBL, IISBNBL _isbnBL, IReaderBL _readerBL)
+        //{
+        //    authorBL = _authorBL;
+        //    bookBL = _bookBL;
+        //    isbnBL = _isbnBL;
+        //    readerBL = _readerBL;
+        //}
 
-            List<ComplexBookViewModel> bookList = new List<ComplexBookViewModel>();
+        //public ActionResult Index()
+        //{
+        //    return View();
+        //}
 
-            foreach(var book in books)
-            {
-                ComplexBookViewModel bookViewModel = Mapper.Map<ComplexBookViewModel>(book);
-                bookViewModel.isbn = isbnBL.FindISBNById(book.isbn.id).isbn;
-                bookViewModel.authorName = authorBL.FindAuthorByKey(book.author.id).authorName;
+        //public ActionResult BookInfo()
+        //{
+        //    var books = bookBL.GetAllBooks();
 
-                bookList.Add(bookViewModel);
-            }
+        //    List<ComplexBookViewModel> bookList = new List<ComplexBookViewModel>();
 
-            return View(bookList.AsEnumerable<ComplexBookViewModel>());
-        }
+        //    foreach(var book in books)
+        //    {
+        //        ComplexBookViewModel bookViewModel = Mapper.Map<ComplexBookViewModel>(book);
+        //        bookViewModel.isbn = isbnBL.FindISBNById(book.isbn.id).isbn;
+        //        bookViewModel.authorName = authorBL.FindAuthorByKey(book.author.id).authorName;
 
-        public ActionResult AuthorInfo()
-        {
-            var authorsList = authorBL.GetAllAuthors();
+        //        bookList.Add(bookViewModel);
+        //    }
 
-            List<ComplexAuthorViewModel> authorListView = new List<ComplexAuthorViewModel>();
-            foreach(var authorItem in authorsList)
-            {
-                var authorView = Mapper.Map<ComplexAuthorViewModel>(authorItem);
-                authorListView.Add(authorView);
-            }
+        //    return View(bookList.AsEnumerable<ComplexBookViewModel>());
+        //}
 
-            return View(authorListView);
-        }
+        //public ActionResult AuthorInfo()
+        //{
+        //    var authorsList = authorBL.GetAllAuthors();
+
+        //    List<ComplexAuthorViewModel> authorListView = new List<ComplexAuthorViewModel>();
+        //    foreach(var authorItem in authorsList)
+        //    {
+        //        var authorView = Mapper.Map<ComplexAuthorViewModel>(authorItem);
+        //        authorListView.Add(authorView);
+        //    }
+
+        //    return View(authorListView);
+        //}
     }
 }

@@ -1,12 +1,12 @@
-﻿using Bookstore.BL;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Web.Http;
-using Bookstore.ViewModels;
+using BookstoreAPI.BookStoreViewModels;
 using AutoMapper;
-using Bookstore.Models;
+using BookstoreBL;
+using BookstoreModels;
 
-namespace Bookstore.Controllers
+namespace BookstoreAPI.Controllers
 {
     [Route(Name = "ReaderController")]
     public class ReadersApiController : ApiController

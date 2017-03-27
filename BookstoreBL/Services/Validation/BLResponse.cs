@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using FluentValidation.Results;
 
-namespace Bookstore.Services
+namespace BookstoreBL.Services
 {
     public class BLResponse<T>
     {
