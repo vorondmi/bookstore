@@ -8,7 +8,6 @@ using BookstoreModels;
 
 namespace BookstoreAPI.Controllers
 {
-    [Route(Name = "ReaderController")]
     public class ReadersApiController : ApiController
     {
         readonly IReaderBL readerBL;
@@ -18,6 +17,7 @@ namespace BookstoreAPI.Controllers
             readerBL = _readerBL;
         }
 
+        [Route("api/readers")]
         [HttpGet]
         public IEnumerable<ReaderViewModel> GetAllReaders()
         {
@@ -28,6 +28,7 @@ namespace BookstoreAPI.Controllers
             return itemViewModelList;
         }
 
+        [Route("api/readers/{id}")]
         [HttpGet]
         public ReaderViewModel GetReaderDetailsById(Guid id)
         {
@@ -38,26 +39,29 @@ namespace BookstoreAPI.Controllers
             return itemViewModel;
         }
 
+        [Route("api/readers")]
         [HttpPut]
-        public void Create(ReaderViewModel itemViewModel)
+        public int CreateReader(ReaderViewModel itemViewModel)
         {
             var item = Mapper.Map<Reader>(itemViewModel);
 
-            readerBL.CreateReader(item);
+            return readerBL.CreateReader(item);
         }
 
+        [Route("api/readers")]
         [HttpPost]
-        public void Update(ReaderViewModel itemViewModel)
+        public int UpdateReader(ReaderViewModel itemViewModel)
         {
             var item = Mapper.Map<Reader>(itemViewModel);
 
-            readerBL.UpdateReader(item);
+            return readerBL.UpdateReader(item);
         }
 
+        [Route("api/readers/{id}")]
         [HttpDelete]
-        public void Delete(Guid id)
+        public int DeleteReader(Guid id)
         {
-            readerBL.DeleteReaderById(id);
+            return readerBL.DeleteReaderById(id);
         }
     }
 }

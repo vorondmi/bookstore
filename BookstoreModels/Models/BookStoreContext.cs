@@ -4,7 +4,7 @@ namespace BookstoreModels
 {
     public class BookStoreContext : DbContext, IDbContext
     {
-        public BookStoreContext():base("BookStoreConnection") {
+        public BookStoreContext(string connectionString):base(connectionString) {
             this.Configuration.LazyLoadingEnabled = false;
 
         }

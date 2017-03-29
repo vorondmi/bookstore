@@ -19,7 +19,7 @@ namespace BookstoreAPI
             // it is NOT necessary to register your controllers
 
             // e.g. container.RegisterType<ITestService, TestService>();
-            container.RegisterType<IDbContext, BookStoreContext>(new ContainerControlledLifetimeManager());
+            container.RegisterType<IDbContext, BookStoreContext>(new ContainerControlledLifetimeManager(), new InjectionConstructor("BookStoreConnection"));
 
             container.RegisterType<IISBNDal, ISBNDal>();
             container.RegisterType<IAuthorDal, AuthorDal>();
