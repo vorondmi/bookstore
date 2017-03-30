@@ -9,7 +9,7 @@ using System.Web.Http;
 
 namespace BookstoreAPI.Controllers
 {
-    //[RoutePrefix("author")]
+    [RoutePrefix("api/authors/")]
     public class AuthorsApiController : ApiController
     {
         readonly IAuthorBL authorBL;
@@ -21,46 +21,56 @@ namespace BookstoreAPI.Controllers
 
         // GET: api/AuthorsApi
         [HttpGet]
-        //[Route("api/authors/kkk/jjjj")]
-        public IEnumerable<AuthorViewModel> Get()
+        // [Route("jjjj")]
+        public IHttpActionResult GetAllAuthors()
         {
             var itemList = authorBL.GetAllAuthors();
 
             var itemViewModelList = Mapper.Map<List<AuthorViewModel>>(itemList);
 
-            return itemViewModelList;
+            return Ok(itemViewModelList);
         }
 
         [HttpGet]
-        public AuthorViewModel GetAuthorDetailsById(Guid id)
+        public IHttpActionResult GetAuthorDetailsById(Guid id)
         {
+            if (id == Guid.Empty) //0000-00-00000
+            {
+                return BadRequest("grybas"); // 400
+            }
             var item = authorBL.FindAuthorByKey(id);
 
             var itemViewModel = Mapper.Map<AuthorViewModel>(item);
 
-            return itemViewModel;
+            return Ok(itemViewModel); // 200
         }
 
         [HttpPut]
-        public void CreateAuthor([FromBody]AuthorViewModel itemViewModel)
+        public IHttpActionResult CreateAuthor([FromBody]AuthorViewModel itemViewModel)
         {
             var item = Mapper.Map<Author>(itemViewModel);
 
             authorBL.CreateAuthor(item);
+
+            return Ok();
         }
 
         [HttpPost]
-        public void UpdateAuthor([FromBody]AuthorViewModel itemViewModel)
+        public IHttpActionResult UpdateAuthor([FromBody]AuthorViewModel itemViewModel)
         {
             var item = Mapper.Map<Author>(itemViewModel);
 
             authorBL.UpdateAuthor(item);
+
+            return Ok();
         }
 
         [HttpDelete]
-        public void DeleteAuthor(Guid id)
+        public IHttpActionResult DeleteAuthor(Guid id)
         {
             authorBL.DeleteAuthorById(id);
+
+            return Ok();
         }
     }
 }

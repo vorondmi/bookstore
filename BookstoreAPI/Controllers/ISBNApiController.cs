@@ -18,45 +18,51 @@ namespace BookstoreAPI.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<ISBNViewModel> GetAllISBNs()
+        public IHttpActionResult GetAllISBNs()
         {
             var itemList = isbnBL.GetAllISBNs();
 
             var itemViewModelList = Mapper.Map<List<ISBNViewModel>>(itemList);
 
-            return itemViewModelList;
+            return Ok(itemViewModelList);
         }
 
         [HttpGet]
-        public ISBNViewModel GetISBNDetailsById(Guid id)
+        public IHttpActionResult GetISBNDetailsById(Guid id)
         {
             var item = isbnBL.FindISBNById(id);
 
             var itemViewModel = Mapper.Map<ISBNViewModel>(item);
 
-            return itemViewModel;
+            return Ok(itemViewModel);
         }
 
         [HttpPut]
-        public void Create(ISBNViewModel isbnViewModel)
+        public IHttpActionResult Create(ISBNViewModel isbnViewModel)
         {
             var item = Mapper.Map<ISBN>(isbnViewModel);
 
             isbnBL.CreateISBN(item);
+
+            return Ok();
         }
 
         [HttpPost]
-        public void Update(ISBNViewModel isbnViewModel)
+        public IHttpActionResult Update(ISBNViewModel isbnViewModel)
         {
             var item = Mapper.Map<ISBN>(isbnViewModel);
 
             isbnBL.UpdateISBN(item);
+
+            return Ok();
         }
 
         [HttpDelete]
-        public void Delete(Guid id)
+        public IHttpActionResult Delete(Guid id)
         {
             isbnBL.DeleteISBNById(id);
+
+            return Ok();
         }
     }
 }

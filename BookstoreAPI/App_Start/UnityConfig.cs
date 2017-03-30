@@ -4,6 +4,7 @@ using BookstoreDAL;
 using BookstoreModels;
 using FluentValidation;
 using Microsoft.Practices.Unity;
+using System.Data.Common;
 using System.Web.Http;
 using Unity.WebApi;
 
@@ -19,7 +20,9 @@ namespace BookstoreAPI
             // it is NOT necessary to register your controllers
 
             // e.g. container.RegisterType<ITestService, TestService>();
-            container.RegisterType<IDbContext, BookStoreContext>(new ContainerControlledLifetimeManager(), new InjectionConstructor("BookStoreConnection"));
+            DbConnection connection = Effort.EntityConnectionFactory.CreateTransient("BookStoreConnection");
+
+            container.RegisterType<IDbContext, BookStoreContext>(new ContainerControlledLifetimeManager(), new InjectionConstructor(connection));
 
             container.RegisterType<IISBNDal, ISBNDal>();
             container.RegisterType<IAuthorDal, AuthorDal>();
@@ -34,6 +37,7 @@ namespace BookstoreAPI
             container.RegisterType<IValidator<Author>, AuthorValidator>();
 
             container.RegisterType<IValidationService, ValidationService>();
+
 
             GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
         }

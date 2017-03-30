@@ -19,49 +19,55 @@ namespace BookstoreAPI.Controllers
 
         [Route("api/readers")]
         [HttpGet]
-        public IEnumerable<ReaderViewModel> GetAllReaders()
+        public IHttpActionResult GetAllReaders()
         {
             var itemList = readerBL.GetAllReaders();
 
             var itemViewModelList = Mapper.Map<List<ReaderViewModel>>(itemList);
 
-            return itemViewModelList;
+            return Ok(itemViewModelList);
         }
 
         [Route("api/readers/{id}")]
         [HttpGet]
-        public ReaderViewModel GetReaderDetailsById(Guid id)
+        public IHttpActionResult GetReaderDetailsById(Guid id)
         {
             var item = readerBL.FindReaderById(id);
 
             var itemViewModel = Mapper.Map<ReaderViewModel>(item);
 
-            return itemViewModel;
+            return Ok(itemViewModel);
         }
 
         [Route("api/readers")]
         [HttpPut]
-        public int CreateReader(ReaderViewModel itemViewModel)
+        public IHttpActionResult CreateReader(ReaderViewModel itemViewModel)
         {
             var item = Mapper.Map<Reader>(itemViewModel);
 
-            return readerBL.CreateReader(item);
+            readerBL.CreateReader(item);
+
+            return Ok();
         }
 
         [Route("api/readers")]
         [HttpPost]
-        public int UpdateReader(ReaderViewModel itemViewModel)
+        public IHttpActionResult UpdateReader(ReaderViewModel itemViewModel)
         {
             var item = Mapper.Map<Reader>(itemViewModel);
 
-            return readerBL.UpdateReader(item);
+            readerBL.UpdateReader(item);
+
+            return Ok();
         }
 
         [Route("api/readers/{id}")]
         [HttpDelete]
-        public int DeleteReader(Guid id)
+        public IHttpActionResult DeleteReader(Guid id)
         {
-            return readerBL.DeleteReaderById(id);
+            readerBL.DeleteReaderById(id);
+
+            return Ok();
         }
     }
 }

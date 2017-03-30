@@ -1,12 +1,17 @@
-﻿using System.Data.Entity;
+﻿using System.Data.Common;
+using System.Data.Entity;
 
 namespace BookstoreModels
 {
     public class BookStoreContext : DbContext, IDbContext
     {
-        public BookStoreContext(string connectionString):base(connectionString) {
-            this.Configuration.LazyLoadingEnabled = false;
+        //public BookStoreContext() : base("BookStoreConnection")
+        //{
+        //    this.Configuration.LazyLoadingEnabled = false;
+        //}
 
+        public BookStoreContext(DbConnection connection):base(connection, true) {
+            this.Configuration.LazyLoadingEnabled = false;
         }
 
         public DbSet<Book> books { get; set; }

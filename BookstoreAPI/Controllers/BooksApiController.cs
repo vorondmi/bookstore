@@ -26,56 +26,62 @@ namespace BookstoreAPI.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<BookViewModel> GetAllBooks()
+        public IHttpActionResult GetAllBooks()
         {
             var itemList = bookBL.GetAllBooks();
 
             var itemViewModelList = Mapper.Map<List<BookViewModel>>(itemList);
 
-            return itemViewModelList;
+            return Ok(itemViewModelList);
         }
 
         [HttpGet]
         [Route("api/authors/{authorId}/books")]
-        public IEnumerable<BookViewModel> Get(Guid authorId)
+        public IHttpActionResult GetBookById(Guid authorId)
         {
             var itemList = bookBL.GetBooksByAuthorId(authorId);
 
             var itemViewModelList = Mapper.Map<List<BookViewModel>>(itemList);
 
-            return itemViewModelList;
+            return Ok(itemViewModelList);
         }
 
         [HttpGet]
-        public BookDetailViewModel GetBookDetailsById(Guid id)
+        public IHttpActionResult GetBookDetailsById(Guid id)
         {
             var item = bookBL.FindBookById(id);
 
             var itemViewModel = Mapper.Map<BookDetailViewModel>(item);
 
-            return itemViewModel;
+            return Ok(itemViewModel);
         }
 
         [HttpPut]
-        public void Create([FromBody]NewBookViewModel itemViewModel)
+        public IHttpActionResult Create([FromBody]NewBookViewModel itemViewModel)
         {
             var item = Mapper.Map<Book>(itemViewModel);
 
             bookBL.CreateBook(item, itemViewModel.authorID, itemViewModel.isbnID, itemViewModel.readerIDs.ToList());
+
+            return Ok();
         }
 
         [HttpPost]
-        public void Update([FromBody]BookViewModel itemViewModel)
+        public IHttpActionResult Update([FromBody]BookViewModel itemViewModel)
         {
             var item = Mapper.Map<Book>(itemViewModel);
 
             bookBL.UpdateBook(item);
+
+            return Ok();
         }
 
         [HttpDelete]
-        public void Delete(Guid id)
+        public IHttpActionResult Delete(Guid id)
         {
             bookBL.DeleteBookById(id);
+
+            return Ok();
         }
     }
 }

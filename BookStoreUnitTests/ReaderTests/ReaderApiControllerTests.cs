@@ -22,18 +22,9 @@ namespace BookStoreUnitTests.ReaderTests
         private List<Reader> readerList;
         private List<ReaderViewModel> readerViewModelList;
 
-        private Guid testGuid;
-
         public ReaderApiControllerTests()
         {
-            InitialiseTestClass();
-        }
-
-        private void InitialiseTestClass()
-        {
             //arrange
-            testGuid = Guid.NewGuid();
-
             readerList = new List<Reader>()
             {
                 new Reader() { id = Guid.NewGuid(), name="Reader1", genre="Drama", books= null, authors=null },
@@ -46,13 +37,25 @@ namespace BookStoreUnitTests.ReaderTests
                 new ReaderViewModel() { id = readerList[1].id, name = readerList[1].name, genre=readerList[1].genre }
             };
 
-
+            newReader = new Reader()
+            {
+                name = "Reader3",
+                genre = "Comedy"
+            };
             newReaderViewModel = new ReaderViewModel()
             {
-                id = Guid.NewGuid(), name = "Reader3", genre = "Comedy"
+                name = "Reader3",
+                genre = "Comedy"
             };
 
-            updatedReaderViewModel = new ReaderViewModel() {
+            updatedReader = new Reader()
+            {
+                id = readerList[1].id,
+                name = "UpdatedReader",
+                genre = "Drama",
+            };
+            updatedReaderViewModel = new ReaderViewModel()
+            {
                 id = readerList[1].id,
                 name = "UpdatedReader",
                 genre = "Drama",
@@ -67,6 +70,11 @@ namespace BookStoreUnitTests.ReaderTests
             readerBL.Setup(r => r.DeleteReaderById(readerList[0].id));
 
             readersApiController = new ReadersApiController(readerBL.Object);
+        }
+
+        private void InitialiseTestClass()
+        {
+            
         }
 
         [TestMethod]
@@ -106,6 +114,7 @@ namespace BookStoreUnitTests.ReaderTests
             
 
             //assert
+
         }
     }
 }
